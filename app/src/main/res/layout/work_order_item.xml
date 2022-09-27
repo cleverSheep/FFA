@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="48dp">
+
+    <TextView
+        android:id="@+id/work_order_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Work Order 15-02687" />
+
+    <LinearLayout
+        android:id="@+id/row_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/work_order_id">
+
+        <com.product.eamfieldaccess.workselection.WorkSelectionItem
+            android:id="@+id/work_order_site"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            app:content="North Kitsap. This is really long text to see what happends with really long text."
+            app:name="Site" />
+
+        <com.product.eamfieldaccess.workselection.WorkSelectionItem
+            android:id="@+id/work_order_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            app:content="Hot Dog Shed"
+            app:name="Unit" />
+
+        <com.product.eamfieldaccess.workselection.WorkSelectionItem
+            android:id="@+id/work_order_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            app:content="Working - RR. This is really long text to see what happends with really long text. Even longer text, longer, longer, longer."
+            app:name="Status" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row_one">
+
+        <com.product.eamfieldaccess.workselection.WorkSelectionItem
+            android:id="@+id/work_order_activity_reason"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            app:content="WR Routine"
+            app:name="Activity / Reason" />
+
+        <com.product.eamfieldaccess.workselection.WorkSelectionItem
+            android:id="@+id/work_order_maint_level"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            app:content="Monthly"
+            app:name="Maintenance Level" />
+
+        <com.product.eamfieldaccess.workselection.WorkSelectionItem
+            android:id="@+id/work_order_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            app:content="Working - RR. This is really long text to see what happends with really long text."
+            app:name="Notes" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
