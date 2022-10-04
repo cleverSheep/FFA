@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.models.WorkOrder
@@ -46,6 +47,9 @@ class WorkSelectionAdapter(private val workOrders: List<WorkOrder>) :
         holder.workOrderActivity.setContent(data.activity)
         holder.workOrderMaintLevel.setContent(data.maintenance)
         holder.workOrderNotes.setContent(data.notes)
+        holder.itemView.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_workSelection_to_workPanel)
+        }
     }
 
     override fun getItemCount() = workOrders.size

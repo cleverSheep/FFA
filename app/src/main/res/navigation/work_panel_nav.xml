@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/work_panel_nav"
+    app:startDestination="@id/checkListFragment">
+
+    <fragment
+        android:id="@+id/checkListFragment"
+        android:name="com.product.eamfieldaccess.workpanel.tabs.CheckListFragment"
+        android:label="fragment_check_list"
+        tools:layout="@layout/fragment_check_list" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.product.eamfieldaccess.workpanel.tabs.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/laborFragment"
+        android:name="com.product.eamfieldaccess.workpanel.tabs.LaborFragment"
+        android:label="fragment_labor"
+        tools:layout="@layout/fragment_labor" />
+    <fragment
+        android:id="@+id/workRequestFragment"
+        android:name="com.product.eamfieldaccess.workpanel.tabs.WorkRequestFragment"
+        android:label="fragment_work_request"
+        tools:layout="@layout/fragment_work_request" />
+    <fragment
+        android:id="@+id/workTasksFragment"
+        android:name="com.product.eamfieldaccess.workpanel.tabs.WorkTasksFragment"
+        android:label="fragment_work_tasks"
+        tools:layout="@layout/fragment_work_tasks" />
+</navigation>

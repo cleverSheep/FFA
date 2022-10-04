@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/workSelection">
+
+    <fragment
+        android:id="@+id/workSelection"
+        android:name="com.product.eamfieldaccess.workselection.WorkSelection"
+        android:label="fragment_work_selection"
+        tools:layout="@layout/fragment_work_selection" >
+        <action
+            android:id="@+id/action_workSelection_to_workPanel"
+            app:destination="@id/workPanel" />
+    </fragment>
+    <fragment
+        android:id="@+id/workPanel"
+        android:name="com.product.eamfieldaccess.workpanel.WorkPanel"
+        android:label="fragment_work_panel"
+        tools:layout="@layout/fragment_work_panel" />
+</navigation>

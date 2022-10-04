@@ -3,12 +3,13 @@ package com.product.eamfieldaccess.workselection
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import com.product.eamfieldaccess.R
 
-class WorkSelectionItem : ConstraintLayout {
+class WorkSelectionItem : LinearLayout {
     private lateinit var itemName: TextView
     private lateinit var itemContent: TextView
 
@@ -36,6 +37,8 @@ class WorkSelectionItem : ConstraintLayout {
         )
         itemName = ViewCompat.requireViewById(this, R.id.piece_name)
         itemContent = ViewCompat.requireViewById(this, R.id.piece_content)
+
+        orientation = LinearLayout.VERTICAL
 
         with(context.obtainStyledAttributes(attrs, R.styleable.WorkSelectionItem)) {
             try {

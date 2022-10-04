@@ -4,90 +4,7 @@ import com.product.eamfieldaccess.models.*
 
 class TestData {
     companion object {
-        val EMPLOYEES = listOf(
-            Employee("nameZero", "000", TestData.SITES),
-            Employee("nameOne", "000", TestData.SITES),
-            Employee("nameTwo", "000", TestData.SITES),
-            Employee("nameThree", "000", TestData.SITES),
-            Employee("nameFour", "000", TestData.SITES),
-            Employee("nameFive", "000", TestData.SITES),
-            Employee("nameSix", "000", TestData.SITES),
-            Employee("nameSeven", "000", TestData.SITES),
-            Employee("nameEight", "000", TestData.SITES)
-        )
-        private val SITES = listOf(
-            Site("siteZero", "000", TestData.WORKORDERS),
-            Site("siteTwo", "000", TestData.WORKORDERS),
-            Site("siteThree", "000", TestData.WORKORDERS)
-        )
-        private val WORKORDERS = listOf(
-            WorkOrder(
-                "workOrderSiteZero",
-                "workOrderLocationZero",
-                "workOrderUnitZero",
-                "workOrderZero",
-                "workOrderStatusZero",
-                "workOrderActivityZero",
-                "workOrderMaintenanceZero",
-                "workOrderStandardTaskZero",
-                "workOrderStandardTaskZero",
-                TestData.WORKTASKS,
-                TestData.LABOR
-            ),
-            WorkOrder(
-                "workOrderSiteZero",
-                "workOrderLocationZero",
-                "workOrderUnitZero",
-                "workOrderZero",
-                "workOrderStatusZero",
-                "workOrderActivityZero",
-                "workOrderMaintenanceZero",
-                "workOrderStandardTaskZero",
-                "workOrderStandardTaskZero",
-                TestData.WORKTASKS,
-                TestData.LABOR
-            ),
-            WorkOrder(
-                "workOrderSiteZero",
-                "workOrderLocationZero",
-                "workOrderUnitZero",
-                "workOrderZero",
-                "workOrderStatusZero",
-                "workOrderActivityZero",
-                "workOrderMaintenanceZero",
-                "workOrderStandardTaskZero",
-                "workOrderStandardTaskZero",
-                TestData.WORKTASKS,
-                TestData.LABOR
-            ),
-            WorkOrder(
-                "workOrderSiteZero",
-                "workOrderLocationZero",
-                "workOrderUnitZero",
-                "workOrderZero",
-                "workOrderStatusZero",
-                "workOrderActivityZero",
-                "workOrderMaintenanceZero",
-                "workOrderStandardTaskZero",
-                "workOrderStandardTaskZero",
-                TestData.WORKTASKS,
-                TestData.LABOR
-            ),
-            WorkOrder(
-                "workOrderSiteZero",
-                "workOrderLocationZero",
-                "workOrderUnitZero",
-                "workOrderZero",
-                "workOrderStatusZero",
-                "workOrderActivityZero",
-                "workOrderMaintenanceZero",
-                "workOrderStandardTaskZero",
-                "workOrderStandardTaskZero",
-                TestData.WORKTASKS,
-                TestData.LABOR
-            )
-        )
-        private val WORKTASKS = listOf(
+        val WORKTASKS = listOf(
             WorkTask(
                 "workTaskCategoryZero",
                 "workTaskCodeZero",
@@ -113,7 +30,7 @@ class TestData {
                 "workTaskNotesZero"
             )
         )
-        private val LABOR = listOf(
+        val LABOR = listOf(
             Labor(
                 "laborEmployeeNameZero",
                 "laborDateZero",
@@ -123,6 +40,90 @@ class TestData {
                 "laborSystemZero",
                 "laborDescriptionZero"
             )
+        )
+        val WORKORDERS = listOf(
+            WorkOrder(
+                "workOrderSiteZero",
+                "workOrderLocationZero",
+                "workOrderUnitZero",
+                "workOrderZero",
+                "workOrderStatusZero",
+                "workOrderActivityZero",
+                "workOrderMaintenanceZero",
+                "workOrderStandardTaskZero",
+                "workOrderStandardTaskZero",
+                WORKTASKS,
+                LABOR
+            ),
+            WorkOrder(
+                "workOrderSiteZero",
+                "workOrderLocationZero",
+                "workOrderUnitZero",
+                "workOrderZero",
+                "workOrderStatusZero",
+                "workOrderActivityZero",
+                "workOrderMaintenanceZero",
+                "workOrderStandardTaskZero",
+                "workOrderStandardTaskZero",
+                WORKTASKS,
+                LABOR
+            ),
+            WorkOrder(
+                "workOrderSiteZero",
+                "workOrderLocationZero",
+                "workOrderUnitZero",
+                "workOrderZero",
+                "workOrderStatusZero",
+                "workOrderActivityZero",
+                "workOrderMaintenanceZero",
+                "workOrderStandardTaskZero",
+                "workOrderStandardTaskZero",
+                WORKTASKS,
+                LABOR
+            ),
+            WorkOrder(
+                "workOrderSiteZero",
+                "workOrderLocationZero",
+                "workOrderUnitZero",
+                "workOrderZero",
+                "workOrderStatusZero",
+                "workOrderActivityZero",
+                "workOrderMaintenanceZero",
+                "workOrderStandardTaskZero",
+                "workOrderStandardTaskZero",
+                WORKTASKS,
+                LABOR
+            ),
+            WorkOrder(
+                "workOrderSiteZero",
+                "workOrderLocationZero",
+                "workOrderUnitZero",
+                "workOrderZero",
+                "workOrderStatusZero",
+                "workOrderActivityZero",
+                "workOrderMaintenanceZero",
+                "workOrderStandardTaskZero",
+                "workOrderStandardTaskZero",
+                WORKTASKS,
+                LABOR
+            )
+        )
+
+        val SITES = listOf(
+            Site("siteZero", "000", WORKORDERS),
+            Site("siteTwo", "000", WORKORDERS),
+            Site("siteThree", "000", WORKORDERS)
+        )
+        val EMPLOYEES = listOf(
+            Employee("nameZero", "000", SITES),
+            Employee("nameOne", "000", SITES),
+            Employee("nameTwo", "000", SITES),
+            Employee("nameThree", "000", SITES),
+            Employee("nameFour", "000", SITES),
+            Employee("nameFive", "000", SITES),
+            Employee("nameSix", "000", SITES),
+            Employee("nameSeven", "000", SITES),
+            Employee("nameEight", "000", SITES)
         )
     }
 }
