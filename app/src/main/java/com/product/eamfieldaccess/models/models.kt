@@ -20,10 +20,15 @@ data class WorkOrder(
     val status: String,
     val activity: String,
     val maintenance: String,
+    val dateOpened: String,
+    val requester: String,
     val notes: String,
     val standardTask: String,
     val workTasks: List<WorkTask>,
-    val labor: List<Labor>
+    val labor: List<Labor>,
+    val startTime: String,
+    val endTime: String,
+    val checkList: List<CheckList>
 )
 
 data class WorkTask(
@@ -41,5 +46,10 @@ data class Labor(
     val time: String,
     val system: String,
     val description: String
+)
+
+data class CheckList(
+    val title: String,
+    val items: List<String>
 )
 // -------------------- //

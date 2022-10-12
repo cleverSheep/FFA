@@ -41,6 +41,22 @@ class TestData {
                 "laborDescriptionZero"
             )
         )
+        val CHECKLISTS = listOf(
+            CheckList(
+                "this item needs to be completed", listOf(
+                    "here is some random text that describes the first item that describes the list",
+                    "here is more random text that describes the first item that describes the list",
+                    "here is even more random text that describes the first item that describes the list"
+                )
+            ),
+            CheckList(
+                "here's another item needs to be completed", listOf(
+                    "here is some random text that describes the second item that describes the list",
+                    "here is more random text that describes the second item that describes the list",
+                    "here is even more random text that describes the second item that describes the list"
+                )
+            )
+        )
         val WORKORDERS = listOf(
             WorkOrder(
                 "workOrderSiteZero",
@@ -52,8 +68,13 @@ class TestData {
                 "workOrderMaintenanceZero",
                 "workOrderStandardTaskZero",
                 "workOrderStandardTaskZero",
+                "here are some random notes here are more random notes here are even more random notes",
+                "here is a standard task",
                 WORKTASKS,
-                LABOR
+                LABOR,
+                "1pm",
+                "2pm",
+                CHECKLISTS
             ),
             WorkOrder(
                 "workOrderSiteZero",
@@ -65,8 +86,13 @@ class TestData {
                 "workOrderMaintenanceZero",
                 "workOrderStandardTaskZero",
                 "workOrderStandardTaskZero",
+                "here are some random notes here are more random notes here are even more random notes",
+                "here is a standard task",
                 WORKTASKS,
-                LABOR
+                LABOR,
+                "1pm",
+                "2pm",
+                CHECKLISTS
             ),
             WorkOrder(
                 "workOrderSiteZero",
@@ -78,8 +104,13 @@ class TestData {
                 "workOrderMaintenanceZero",
                 "workOrderStandardTaskZero",
                 "workOrderStandardTaskZero",
+                "here are some random notes here are more random notes here are even more random notes",
+                "here is a standard task",
                 WORKTASKS,
-                LABOR
+                LABOR,
+                "1pm",
+                "2pm",
+                CHECKLISTS
             ),
             WorkOrder(
                 "workOrderSiteZero",
@@ -91,8 +122,13 @@ class TestData {
                 "workOrderMaintenanceZero",
                 "workOrderStandardTaskZero",
                 "workOrderStandardTaskZero",
+                "here are some random notes here are more random notes here are even more random notes",
+                "here is a standard task",
                 WORKTASKS,
-                LABOR
+                LABOR,
+                "1pm",
+                "2pm",
+                CHECKLISTS
             ),
             WorkOrder(
                 "workOrderSiteZero",
@@ -104,8 +140,13 @@ class TestData {
                 "workOrderMaintenanceZero",
                 "workOrderStandardTaskZero",
                 "workOrderStandardTaskZero",
+                "here are some random notes here are more random notes here are even more random notes",
+                "here is a standard task",
                 WORKTASKS,
-                LABOR
+                LABOR,
+                "1pm",
+                "2pm",
+                CHECKLISTS
             )
         )
 

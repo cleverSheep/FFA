@@ -1,13 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="48dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="this is a details fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_work_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Work Order"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Work Order" />
+
+        <EditText
+            android:id="@+id/edittext_work_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:enabled="false"
+            android:hint="15-02604"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_work_order"
+            app:layout_constraintStart_toEndOf="@id/tv_work_order"
+            app:layout_constraintTop_toTopOf="@id/tv_work_order" />
+
+        <TextView
+            android:id="@+id/tv_site"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="Site"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/edittext_work_order"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Site" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:enabled="false"
+            android:hint="15-02604"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_site"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_site"
+            app:layout_constraintTop_toTopOf="@id/tv_work_order" />
+
+        <TextView
+            android:id="@+id/tv_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Unit"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_work_order" />
+
+        <EditText
+            android:id="@+id/edittext_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:enabled="false"
+            android:hint="Park and Rides Mullenix PR"
+            android:textAllCaps="true"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_unit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_unit"
+            app:layout_constraintTop_toTopOf="@id/tv_unit" />
+
+        <TextView
+            android:id="@+id/tv_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Open"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_unit"
+            app:layout_constraintTop_toBottomOf="@id/tv_unit" />
+
+        <EditText
+            android:id="@+id/edittext_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:enabled="false"
+            android:hint="Th 06/04/2015"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_open"
+            app:layout_constraintStart_toEndOf="@id/tv_open"
+            app:layout_constraintTop_toTopOf="@id/tv_open" />
+
+        <TextView
+            android:id="@+id/tv_requester"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="Requester"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_open"
+            app:layout_constraintStart_toEndOf="@+id/edittext_open"
+            app:layout_constraintTop_toTopOf="@+id/tv_open" />
+
+        <EditText
+            android:id="@+id/edittext_requester"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:enabled="false"
+            android:hint="Orton, Don"
+            android:textAllCaps="true"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_open"
+            app:layout_constraintStart_toEndOf="@id/tv_requester"
+            app:layout_constraintTop_toTopOf="@id/tv_open" />
+
+        <TextView
+            android:id="@+id/tv_activity_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Activity Reason"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_open" />
+
+        <EditText
+            android:id="@+id/edittext_activity_reason"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:enabled="false"
+            android:hint="Work Request Routine"
+            android:textAllCaps="true"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_activity_reason"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_activity_reason"
+            app:layout_constraintTop_toTopOf="@id/tv_activity_reason" />
+
+        <TextView
+            android:id="@+id/tv_standard_task_maint_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Standard Task / Maintenance Level"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/edittext_standard_task_maint_level"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edittext_standard_task_maint_level" />
+
+        <EditText
+            android:id="@+id/edittext_standard_task_maint_level"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:enabled="false"
+            android:hint="Park and Rides Mullenix PR"
+            android:textAllCaps="true"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_standard_task_maint_level"
+            app:layout_constraintTop_toBottomOf="@id/edittext_activity_reason" />
+
+        <TextView
+            android:id="@+id/tv_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notes"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/edittext_notes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edittext_notes" />
+
+        <EditText
+            android:id="@+id/edittext_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:enabled="false"
+            android:hint="This is a note with a lot of text. The text should properly wrap when it is very very long. Usually the note wouldn't be this long, but I want to to test it just in case"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_notes"
+            app:layout_constraintTop_toBottomOf="@id/edittext_standard_task_maint_level" />
+
+        <Button
+            android:id="@+id/timer_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_timer_24"
+            android:text="Start Time"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/timer_finish"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edittext_notes" />
+
+        <Button
+            android:id="@+id/timer_finish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_outlined_flag_24"
+            android:text="Complete Work Order"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/timer_start"
+            app:layout_constraintTop_toBottomOf="@id/edittext_notes" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
