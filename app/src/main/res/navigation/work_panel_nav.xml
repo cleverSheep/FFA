@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_work_request" />
     <fragment
         android:id="@+id/workTasksFragment"
-        android:name="com.product.eamfieldaccess.workpanel.tabs.WorkTasksFragment"
+        android:name="com.product.eamfieldaccess.workpanel.tabs.worktasks.WorkTasksFragment"
         android:label="fragment_work_tasks"
         tools:layout="@layout/fragment_work_tasks" />
 </navigation>

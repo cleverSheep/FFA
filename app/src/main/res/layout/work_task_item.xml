@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_work_task"
+    android:padding="16dp">
+
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_task_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:content="PM"
+        app:layout_constraintEnd_toStartOf="@+id/work_task_code"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:name="Work Category" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_task_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:content="Travel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/work_task_category"
+        app:layout_constraintTop_toTopOf="parent"
+        app:name="Work Code" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_task_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:content="Travel Time"
+        app:layout_constraintEnd_toStartOf="@+id/work_task_notes"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/work_task_category"
+        app:name="Work Description" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_task_notes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:content="Working - RR. This is really long text to see what happends with really long text."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/work_task_description"
+        app:layout_constraintTop_toBottomOf="@id/work_task_category"
+        app:name="Notes" />
+</androidx.constraintlayout.widget.ConstraintLayout>
