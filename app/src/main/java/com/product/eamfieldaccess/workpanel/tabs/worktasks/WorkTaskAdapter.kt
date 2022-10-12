@@ -35,7 +35,7 @@ class WorkTaskAdapter(
         holder.workCategory.setContent(dataSet[position].category)
         holder.workCode.setContent(dataSet[position].code)
         holder.workDescription.setContent(dataSet[position].description)
-        holder.workNotes.setContent(dataSet[position].notes)
+        holder.workNotes.setContentForEditableText(dataSet[position].notes)
     }
 
     override fun getItemCount() = dataSet.size

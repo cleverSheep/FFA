@@ -14,7 +14,6 @@ import com.product.eamfieldaccess.util.TestData
 
 class WorkTasksFragment : Fragment() {
     private lateinit var workTasks: RecyclerView
-    private lateinit var fabEditTask: FloatingActionButton
     private lateinit var fabRefreshTasks: FloatingActionButton
     private lateinit var fabAddTask: FloatingActionButton
     private val alertDialog = AddTaskDialog()
@@ -37,7 +36,6 @@ class WorkTasksFragment : Fragment() {
         workTasks.layoutManager = LinearLayoutManager(activity)
 
         fabAddTask = view.findViewById(R.id.fab_add_task)
-        fabEditTask = view.findViewById(R.id.fab_edit_task)
         fabRefreshTasks = view.findViewById(R.id.fab_refresh_tasks)
 
         fabAddTask.setOnClickListener {
@@ -50,8 +48,6 @@ class WorkTasksFragment : Fragment() {
                 }
             }
         }
-
-        fabEditTask.setOnClickListener {}
 
         fabRefreshTasks.setOnClickListener {}
 

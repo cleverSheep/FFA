@@ -39,6 +39,7 @@ data class WorkTask(
 )
 
 data class Labor(
+    val id: String,
     val employeeName: String,
     val date: String,
     val start: Int,

@@ -46,10 +46,10 @@ class WorkPanel : AbstractListDetailFragment() {
 
     companion object {
         val map = mapOf(
-            "details" to R.id.detailsFragment,
-            "workTasks" to R.id.workTasksFragment,
-            "labor" to R.id.laborFragment,
-            "checklist" to R.id.checkListFragment,
+            "Details" to R.id.detailsFragment,
+            "Work Tasks" to R.id.workTasksFragment,
+            "Labor" to R.id.laborFragment,
+            "Checklist" to R.id.checkListFragment,
             "workRequest" to R.id.workRequestFragment
         )
     }

@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_details" />
     <fragment
         android:id="@+id/laborFragment"
-        android:name="com.product.eamfieldaccess.workpanel.tabs.LaborFragment"
+        android:name="com.product.eamfieldaccess.workpanel.tabs.worklabor.LaborFragment"
         android:label="fragment_labor"
         tools:layout="@layout/fragment_labor" />
     <fragment

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_work_task"
+    android:padding="16dp">
+
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_labor_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:content="3221"
+        app:layout_constraintEnd_toStartOf="@+id/work_labor_employee_name"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:name="Work ID" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_labor_employee_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:content="PM"
+        app:layout_constraintEnd_toStartOf="@+id/work_labor_date"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/work_labor_id"
+        app:layout_constraintTop_toTopOf="parent"
+        app:name="Work Employee Name" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_labor_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:content="PM"
+        app:layout_constraintEnd_toStartOf="@+id/work_labor_start"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/work_labor_employee_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:name="Work Date" />
+
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_labor_start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:content="0942"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/work_labor_date"
+        app:layout_constraintTop_toTopOf="parent"
+        app:name="Work Start" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_labor_stop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:content="0950"
+        app:layout_constraintEnd_toStartOf="@+id/work_labor_time"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/work_labor_id"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:name="Stop" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_labor_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:content="0:08"
+        app:layout_constraintEnd_toStartOf="@+id/work_labor_system"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/work_labor_stop"
+        app:layout_constraintTop_toBottomOf="@id/work_labor_employee_name"
+        app:name="Work Time" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_labor_system"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:content="PM"
+        app:layout_constraintEnd_toStartOf="@+id/work_labor_task_description"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/work_labor_time"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:name="System" />
+
+    <com.product.eamfieldaccess.workselection.WorkSelectionItem
+        android:id="@+id/work_labor_task_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:editableText="Travel Time"
+        app:layout_constraintEnd_toEndOf="@+id/work_labor_start"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/work_labor_system"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:name="Work Task" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="work_labor_employee_name,work_labor_id,work_labor_start,work_labor_date"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

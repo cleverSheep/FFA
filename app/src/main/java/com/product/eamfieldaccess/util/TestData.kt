@@ -30,8 +30,39 @@ class TestData {
                 "workTaskNotesZero"
             )
         )
-        val LABOR = listOf(
+        val LABOR = arrayListOf(
             Labor(
+                "3221",
+                "laborEmployeeNameZero",
+                "laborDateZero",
+                100,
+                100,
+                "laborTimeZero",
+                "laborSystemZero",
+                "laborDescriptionZero"
+            ),
+            Labor(
+                "3222",
+                "laborEmployeeNameZero",
+                "laborDateZero",
+                100,
+                100,
+                "laborTimeZero",
+                "laborSystemZero",
+                "laborDescriptionZero"
+            ),
+            Labor(
+                "3224",
+                "laborEmployeeNameZero",
+                "laborDateZero",
+                100,
+                100,
+                "laborTimeZero",
+                "laborSystemZero",
+                "laborDescriptionZero"
+            ),
+            Labor(
+                "3444",
                 "laborEmployeeNameZero",
                 "laborDateZero",
                 100,

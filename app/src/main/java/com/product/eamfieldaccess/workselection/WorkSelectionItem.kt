@@ -3,15 +3,17 @@ package com.product.eamfieldaccess.workselection
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import com.product.eamfieldaccess.R
 
 class WorkSelectionItem : LinearLayout {
     private lateinit var itemName: TextView
     private lateinit var itemContent: TextView
+    private lateinit var editableTextField: EditText
 
     constructor(context: Context) : super(context) {
         initializeView(null)
@@ -37,8 +39,9 @@ class WorkSelectionItem : LinearLayout {
         )
         itemName = ViewCompat.requireViewById(this, R.id.piece_name)
         itemContent = ViewCompat.requireViewById(this, R.id.piece_content)
+        editableTextField = ViewCompat.requireViewById(this, R.id.editable_text_field)
 
-        orientation = LinearLayout.VERTICAL
+        orientation = VERTICAL
 
         with(context.obtainStyledAttributes(attrs, R.styleable.WorkSelectionItem)) {
             try {
@@ -47,6 +50,9 @@ class WorkSelectionItem : LinearLayout {
                 }
                 getString(R.styleable.WorkSelectionItem_content)?.also { content ->
                     setContent(content)
+                }
+                getString(R.styleable.WorkSelectionItem_editableText)?.also { content ->
+                    setContentForEditableText(content)
                 }
             } finally {
                 recycle()
@@ -59,6 +65,14 @@ class WorkSelectionItem : LinearLayout {
     }
 
     fun setContent(content: String?) {
+        itemContent.visibility = View.VISIBLE
         itemContent.text = content
+        editableTextField.visibility = View.GONE
+    }
+
+    fun setContentForEditableText(content: String?) {
+        editableTextField.visibility = View.VISIBLE
+        editableTextField.setText(content)
+        itemContent.visibility = View.GONE
     }
 }
