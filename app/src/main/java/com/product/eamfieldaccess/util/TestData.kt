@@ -72,7 +72,7 @@ class TestData {
                 "laborDescriptionZero"
             )
         )
-        val CHECKLISTS = listOf(
+        val CHECKLISTS = arrayListOf(
             CheckList(
                 "this item needs to be completed", listOf(
                     "here is some random text that describes the first item that describes the list",
