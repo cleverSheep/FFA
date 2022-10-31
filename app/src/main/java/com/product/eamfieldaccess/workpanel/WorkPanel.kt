@@ -49,8 +49,7 @@ class WorkPanel : AbstractListDetailFragment() {
             "Details" to R.id.detailsFragment,
             "Work Tasks" to R.id.workTasksFragment,
             "Labor" to R.id.laborFragment,
-            "Checklist" to R.id.checkListFragment,
-            "workRequest" to R.id.workRequestFragment
+            "Checklist" to R.id.checkListFragment
         )
     }
 }

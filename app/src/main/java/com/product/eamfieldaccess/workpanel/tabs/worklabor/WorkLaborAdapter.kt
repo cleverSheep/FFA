@@ -39,9 +39,9 @@ class WorkLaborAdapter(
         holder.employeeName.setContent(dataSet[position].employeeName)
         holder.id.setContent(dataSet[position].id)
         holder.date.setContent(dataSet[position].date)
-        holder.startTime.setContent(dataSet[position].start.toString())
-        holder.stopTime.setContent(dataSet[position].stop.toString())
-        holder.time.setContent(dataSet[position].time)
+        holder.startTime.setContent(dataSet[position].startTime)
+        holder.stopTime.setContent(dataSet[position].endTime)
+        holder.time.setContent(dataSet[position].totalTime.toString())
         holder.system.setContent(dataSet[position].system)
         holder.taskDescription.setContentForEditableText(dataSet[position].description)
     }

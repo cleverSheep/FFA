@@ -3,7 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/workSelection">
+    app:startDestination="@id/identification">
+
+    <fragment
+        android:id="@+id/identification"
+        android:name="com.product.eamfieldaccess.identification.Identification"
+        android:label="fragment_identification"
+        tools:layout="@layout/fragment_identification" >
+        <action
+            android:id="@+id/action_identification_to_workSelection"
+            app:destination="@id/workSelection" />
+    </fragment>
 
     <fragment
         android:id="@+id/workSelection"

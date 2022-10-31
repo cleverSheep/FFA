@@ -35,16 +35,19 @@ data class WorkTask(
     val category: String,
     val code: String,
     val description: String,
-    val notes: String
+    val notes: String,
+    val startTime: String = "",
+    val endTime: String = "",
+    val totalTime: Int = 0
 )
 
 data class Labor(
     val id: String,
     val employeeName: String,
     val date: String,
-    val start: Int,
-    val stop: Int,
-    val time: String,
+    val startTime: String,
+    val endTime: String,
+    val totalTime: Int,
     val system: String,
     val description: String
 )

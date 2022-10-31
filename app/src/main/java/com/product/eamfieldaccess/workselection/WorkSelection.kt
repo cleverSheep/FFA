@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
+import com.product.eamfieldaccess.identification.IdentificationAdapter
 import com.product.eamfieldaccess.util.TestData
 
 class WorkSelection : Fragment() {
@@ -25,7 +26,14 @@ class WorkSelection : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         workOrders = view.findViewById(R.id.rv_work_orders)
 
-        val adapter = WorkSelectionAdapter(TestData.WORKORDERS)
+/*        val fetchedWorkOrders = try {
+            requireArguments().getSerializable("work_orders")
+        } catch (e: Exception) {
+            WorkSelectionAdapter(TestData.WORKORDERS)
+        }*/
+        val fetchedWorkOrders =
+            requireArguments().getSerializable("work_orders") as IdentificationAdapter.WorkOrders
+        val adapter = WorkSelectionAdapter(fetchedWorkOrders.orders)
         workOrders.adapter = adapter
         workOrders.layoutManager = LinearLayoutManager(activity)
 
