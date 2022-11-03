@@ -13,6 +13,7 @@ data class Site(
 )
 
 data class WorkOrder(
+    val id: String,
     val site: String,
     val location: String,
     val unit: String,
@@ -32,6 +33,7 @@ data class WorkOrder(
 )
 
 data class WorkTask(
+    val workOrderId: String,
     val category: String,
     val code: String,
     val description: String,
@@ -41,13 +43,23 @@ data class WorkTask(
     val totalTime: Int = 0
 )
 
-data class Labor(
-    val id: String,
-    val employeeName: String,
-    val date: String,
+data class TaskTime(
+    val workOrderId: String,
+    val workTaskCode: String,
     val startTime: String,
     val endTime: String,
-    val totalTime: Int,
+    val totalTime: Int
+)
+
+data class Labor(
+    val workOrderId: String,
+    val employeeId: String,
+    val workTaskCode: String,
+    val employeeName: String,
+    val date: String,
+    var startTime: String,
+    var endTime: String,
+    var totalTime: Int,
     val system: String,
     val description: String
 )

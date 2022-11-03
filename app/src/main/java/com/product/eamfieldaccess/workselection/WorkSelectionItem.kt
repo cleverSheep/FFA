@@ -70,6 +70,12 @@ class WorkSelectionItem : LinearLayout {
         editableTextField.visibility = View.GONE
     }
 
+    fun setContentHint(content: String?) {
+        itemContent.visibility = View.VISIBLE
+        itemContent.hint = content
+        editableTextField.visibility = View.GONE
+    }
+
     fun setContentForEditableText(content: String?) {
         editableTextField.visibility = View.VISIBLE
         editableTextField.setText(content)

@@ -1,44 +1,43 @@
 package com.product.eamfieldaccess.workpanel.tabs.worktasks
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.product.eamfieldaccess.R
-import com.product.eamfieldaccess.util.TestData
+import com.product.eamfieldaccess.databinding.FragmentWorkTasksBinding
+import com.product.eamfieldaccess.models.TaskTime
+import com.product.eamfieldaccess.models.WorkTask
+import com.product.eamfieldaccess.workselection.WorkOrderViewModel
 
 class WorkTasksFragment : Fragment() {
-    private lateinit var workTasks: RecyclerView
-    private lateinit var fabRefreshTasks: FloatingActionButton
-    private lateinit var fabAddTask: FloatingActionButton
     private val alertDialog = AddTaskDialog()
 
+    private lateinit var model: WorkOrderViewModel
+    private lateinit var binding: FragmentWorkTasksBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_work_tasks, container, false)
+        model = ViewModelProvider(requireActivity())[WorkOrderViewModel::class.java]
+        binding = FragmentWorkTasksBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        workTasks = view.findViewById(R.id.rv_work_tasks)
+        model.currentWorkOrder.observe(viewLifecycleOwner) {
+            val adapter =
+                WorkTaskAdapter(it.workTasks as ArrayList<WorkTask>, this::onTaskTimeUpdated)
+            binding.rvWorkTasks.adapter = adapter
+            binding.rvWorkTasks.layoutManager = LinearLayoutManager(activity)
 
-        val adapter = WorkTaskAdapter(TestData.WORKTASKS)
-        workTasks.adapter = adapter
-        workTasks.layoutManager = LinearLayoutManager(activity)
-
-        fabAddTask = view.findViewById(R.id.fab_add_task)
-        fabRefreshTasks = view.findViewById(R.id.fab_refresh_tasks)
-
-        fabAddTask.setOnClickListener {
+        }
+/*        binding.fabAddTask.setOnClickListener {
             alertDialog.showDialog(activity)
             alertDialog._addedTask.observe(viewLifecycleOwner) {
                 if (it != null) {
@@ -47,9 +46,19 @@ class WorkTasksFragment : Fragment() {
                     Log.d("WorkTasksFragment", "Work task is null")
                 }
             }
-        }
+        }*/
 
-        fabRefreshTasks.setOnClickListener {}
+        // binding.fabRefreshTasks.setOnClickListener {}
+    }
 
+    fun onTaskTimeUpdated(
+        workOrderId: String,
+        taskCode: String,
+        startTime: String,
+        endTime: String,
+        totalTime: Int
+    ) {
+        val taskTime = TaskTime(workOrderId, taskCode, startTime, endTime, totalTime)
+        model.currentTime.postValue(taskTime)
     }
 }

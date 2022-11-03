@@ -5,30 +5,42 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
+import com.product.eamfieldaccess.databinding.FragmentLaborBinding
+import com.product.eamfieldaccess.databinding.FragmentWorkTasksBinding
+import com.product.eamfieldaccess.models.Labor
 import com.product.eamfieldaccess.util.TestData
-import com.product.eamfieldaccess.workpanel.tabs.worktasks.WorkTaskAdapter
+import com.product.eamfieldaccess.workselection.WorkOrderViewModel
 
 class LaborFragment : Fragment() {
-    private lateinit var labor: RecyclerView
+    private lateinit var binding: FragmentLaborBinding
+    private lateinit var model: WorkOrderViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_labor, container, false)
+        model = ViewModelProvider(requireActivity())[WorkOrderViewModel::class.java]
+        binding = FragmentLaborBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        labor = view.findViewById(R.id.rv_labor)
+        val adapter = WorkLaborAdapter()
 
-        val adapter = WorkLaborAdapter(TestData.LABOR)
-        labor.adapter = adapter
-        labor.layoutManager = LinearLayoutManager(activity)
+        model.currentWorkOrder.observe(viewLifecycleOwner) {
+            binding.rvLabor.adapter = adapter
+            adapter.addLaborItems(it.labor as ArrayList<Labor>)
+            binding.rvLabor.layoutManager = LinearLayoutManager(activity)
+        }
 
+        model.currentTime.observe(viewLifecycleOwner) {
+            adapter.updateTaskTime(it)
+        }
     }
 }

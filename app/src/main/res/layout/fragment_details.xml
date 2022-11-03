@@ -42,22 +42,24 @@
             android:text="Site"
             android:textSize="42sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_work_order"
             app:layout_constraintStart_toEndOf="@id/edittext_work_order"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Site" />
 
         <EditText
+            android:id="@+id/edittext_work_site"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:enabled="false"
-            android:hint="15-02604"
+            android:hint="15-0260 gneriogrneige4"
             android:textSize="45sp"
             android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="pa"
             app:layout_constraintBottom_toBottomOf="@id/tv_site"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_site"
-            app:layout_constraintTop_toTopOf="@id/tv_work_order" />
+            app:layout_constraintStart_toEndOf="@id/tv_site" />
 
         <TextView
             android:id="@+id/tv_unit"
@@ -123,7 +125,7 @@
 
         <EditText
             android:id="@+id/edittext_requester"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:enabled="false"
@@ -132,6 +134,7 @@
             android:textSize="45sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/tv_open"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_requester"
             app:layout_constraintTop_toTopOf="@id/tv_open" />
 
@@ -211,31 +214,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_notes"
             app:layout_constraintTop_toBottomOf="@id/edittext_standard_task_maint_level" />
-
-        <Button
-            android:id="@+id/timer_start"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_timer_24"
-            android:text="Start Time"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@+id/timer_finish"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edittext_notes" />
-
-        <Button
-            android:id="@+id/timer_finish"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_outlined_flag_24"
-            android:text="Complete Work Order"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/timer_start"
-            app:layout_constraintTop_toBottomOf="@id/edittext_notes" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

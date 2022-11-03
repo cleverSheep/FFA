@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.models.WorkOrder
 
-class WorkSelectionAdapter(private val workOrders: List<WorkOrder>) :
+class WorkSelectionAdapter(
+    private val workOrders: List<WorkOrder>,
+    private val workOrderSelected: (workOrder: WorkOrder) -> Unit
+) :
     RecyclerView.Adapter<WorkSelectionAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -48,6 +51,7 @@ class WorkSelectionAdapter(private val workOrders: List<WorkOrder>) :
         holder.workOrderMaintLevel.setContent(data.maintenance)
         holder.workOrderNotes.setContent(data.notes)
         holder.itemView.setOnClickListener { view ->
+            workOrderSelected(data)
             view.findNavController().navigate(R.id.action_workSelection_to_workPanel)
         }
     }

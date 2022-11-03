@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.models.Employee
 import com.product.eamfieldaccess.models.WorkOrder
-import com.product.eamfieldaccess.workselection.WorkSelectionAdapter
 import com.product.eamfieldaccess.workselection.WorkSelectionItem
 import java.io.Serializable
 

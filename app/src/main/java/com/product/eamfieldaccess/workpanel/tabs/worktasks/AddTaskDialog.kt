@@ -41,7 +41,7 @@ class AddTaskDialog {
             cancel.setOnClickListener {
                 dialog.dismiss()
             }
-            submit.setOnClickListener {
+/*            submit.setOnClickListener {
                 val task = WorkTask(
                     category.text.toString(),
                     code.text.toString(),
@@ -50,7 +50,7 @@ class AddTaskDialog {
                 )
                 _addedTask.value = task
                 dialog.dismiss()
-            }
+            }*/
             dialog.show()
         } else {
             Log.d("AddTaskDialog", "The activity is null!")
