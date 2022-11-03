@@ -17,8 +17,9 @@
             android:text="Work Order"
             android:textSize="42sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_site"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_site"
             tools:text="Work Order" />
 
         <EditText
@@ -42,9 +43,9 @@
             android:text="Site"
             android:textSize="42sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_work_order"
+            app:layout_constraintBottom_toBottomOf="@+id/edittext_work_site"
             app:layout_constraintStart_toEndOf="@id/edittext_work_order"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edittext_work_site"
             tools:text="Site" />
 
         <EditText
@@ -53,24 +54,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:enabled="false"
-            android:hint="15-0260 gneriogrneige4"
+            android:hint="15-0260 long text 15-0260 long text 15-0260 long text 15-0260 long text 15-0260 long text"
             android:textSize="45sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="pa"
-            app:layout_constraintBottom_toBottomOf="@id/tv_site"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_site" />
+            app:layout_constraintStart_toEndOf="@id/tv_site"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:text="Unit"
             android:textSize="42sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/edittext_unit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_work_order" />
+            app:layout_constraintTop_toTopOf="@+id/edittext_unit" />
 
         <EditText
             android:id="@+id/edittext_unit"
@@ -82,21 +82,20 @@
             android:textAllCaps="true"
             android:textSize="45sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tv_unit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_unit"
-            app:layout_constraintTop_toTopOf="@id/tv_unit" />
+            app:layout_constraintTop_toBottomOf="@id/edittext_work_site" />
 
         <TextView
             android:id="@+id/tv_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:text="Open"
             android:textSize="42sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_unit"
-            app:layout_constraintTop_toBottomOf="@id/tv_unit" />
+            app:layout_constraintBottom_toBottomOf="@id/edittext_open"
+            app:layout_constraintTop_toTopOf="@id/edittext_open" />
 
         <EditText
             android:id="@+id/edittext_open"
@@ -107,21 +106,19 @@
             android:hint="Th 06/04/2015"
             android:textSize="45sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tv_open"
             app:layout_constraintStart_toEndOf="@id/tv_open"
-            app:layout_constraintTop_toTopOf="@id/tv_open" />
+            app:layout_constraintTop_toBottomOf="@id/edittext_unit" />
 
         <TextView
             android:id="@+id/tv_requester"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:text="Requester"
             android:textSize="42sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_open"
-            app:layout_constraintStart_toEndOf="@+id/edittext_open"
-            app:layout_constraintTop_toTopOf="@+id/tv_open" />
+            app:layout_constraintBottom_toBottomOf="@+id/edittext_requester"
+            app:layout_constraintStart_toStartOf="@+id/tv_open"
+            app:layout_constraintTop_toTopOf="@+id/edittext_requester" />
 
         <EditText
             android:id="@+id/edittext_requester"
@@ -129,25 +126,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:enabled="false"
-            android:hint="Orton, Don"
+            android:hint="Orton, Don 15-0260 long  long  long text "
             android:textAllCaps="true"
             android:textSize="45sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tv_open"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_requester"
-            app:layout_constraintTop_toTopOf="@id/tv_open" />
+            app:layout_constraintTop_toBottomOf="@+id/edittext_open" />
 
         <TextView
             android:id="@+id/tv_activity_reason"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:text="Activity Reason"
             android:textSize="42sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/edittext_activity_reason"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_open" />
+            app:layout_constraintTop_toTopOf="@+id/edittext_activity_reason" />
 
         <EditText
             android:id="@+id/edittext_activity_reason"
@@ -159,17 +155,16 @@
             android:textAllCaps="true"
             android:textSize="45sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tv_activity_reason"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_activity_reason"
-            app:layout_constraintTop_toTopOf="@id/tv_activity_reason" />
+            app:layout_constraintTop_toBottomOf="@id/edittext_requester" />
 
         <TextView
             android:id="@+id/tv_standard_task_maint_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Standard Task / Maintenance Level"
+            android:text="Standard Task"
             android:textSize="42sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/edittext_standard_task_maint_level"
@@ -181,7 +176,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
             android:enabled="false"
             android:hint="Park and Rides Mullenix PR"
             android:textAllCaps="true"

@@ -40,15 +40,15 @@ data class WorkTask(
     val notes: String,
     val startTime: String = "",
     val endTime: String = "",
-    val totalTime: Int = 0
+    val totalTime: String = ""
 )
 
 data class TaskTime(
     val workOrderId: String,
     val workTaskCode: String,
-    val startTime: String,
-    val endTime: String,
-    val totalTime: Int
+    val startTime: String = "---",
+    val endTime: String = "---",
+    val totalTime: String = "---"
 )
 
 data class Labor(
@@ -59,7 +59,7 @@ data class Labor(
     val date: String,
     var startTime: String,
     var endTime: String,
-    var totalTime: Int,
+    var totalTime: String,
     val system: String,
     val description: String
 )

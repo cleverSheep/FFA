@@ -32,7 +32,7 @@ class TestData {
                 "laborDateZero",
                 "100",
                 "100",
-                200,
+                "200",
                 "laborSystemZero",
                 "laborDescriptionZero"
             )
@@ -46,7 +46,7 @@ class TestData {
                 "laborDateZero",
                 "100",
                 "100",
-                200,
+                "200",
                 "laborSystemZero",
                 "laborDescriptionZero"
             )
@@ -80,7 +80,7 @@ class TestData {
                 "workOrderActivityZero",
                 "workOrderMaintenanceZero",
                 "workOrderStandardTaskZero",
-                "workOrderStandardTaskZero",
+                "liltas",
                 "here are some random notes here are more random notes here are even more random notes",
                 "here is a standard task",
                 WORKTASKS,
@@ -101,7 +101,7 @@ class TestData {
                 "workOrderActivityZero",
                 "workOrderMaintenanceZero",
                 "workOrderStandardTaskZero",
-                "workOrderStandardTaskZero",
+                "liltas",
                 "here are some random notes here are more random notes here are even more random notes",
                 "here is a standard task",
                 WORKTASKS_TWO,

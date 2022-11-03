@@ -52,13 +52,8 @@ class WorkTasksFragment : Fragment() {
     }
 
     fun onTaskTimeUpdated(
-        workOrderId: String,
-        taskCode: String,
-        startTime: String,
-        endTime: String,
-        totalTime: Int
+        taskTime: TaskTime
     ) {
-        val taskTime = TaskTime(workOrderId, taskCode, startTime, endTime, totalTime)
         model.currentTime.postValue(taskTime)
     }
 }

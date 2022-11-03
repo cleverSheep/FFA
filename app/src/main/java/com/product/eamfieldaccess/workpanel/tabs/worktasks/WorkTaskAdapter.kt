@@ -4,21 +4,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
+import com.product.eamfieldaccess.models.TaskTime
 import com.product.eamfieldaccess.models.WorkTask
-import com.product.eamfieldaccess.workpanel.tabs.worklabor.WorkLaborAdapter
+import com.product.eamfieldaccess.util.Utils
 import com.product.eamfieldaccess.workselection.WorkSelectionItem
+import java.util.*
+import kotlin.collections.ArrayList
 
 class WorkTaskAdapter(
     private val dataSet: ArrayList<WorkTask> = arrayListOf(),
     private val itemClickListener: ((
-        workOrderId: String,
-        workTaskCode: String,
-        startTime: String,
-        endTime: String,
-        totalTime: Int
+        taskTime: TaskTime
     ) -> Unit)? = null
 ) : RecyclerView.Adapter<WorkTaskAdapter.ViewHolder>() {
 
@@ -48,24 +46,57 @@ class WorkTaskAdapter(
         holder.workCode.setContent(dataSet[position].code)
         holder.workDescription.setContent(dataSet[position].description)
         holder.workNotes.setContentForEditableText(dataSet[position].notes)
+        holder.endTask.isEnabled = false
 
-/*        holder.startTask.setOnClickListener {
+        val workOrderId = dataSet[position].workOrderId
+        val workTaskCode = dataSet[position].code
 
-        }*/
+        if (Utils.TASK_RUNNING["${workOrderId}-${workTaskCode}"] == true) {
+            holder.endTask.isEnabled = true
+            holder.startTask.isEnabled = false
+        }
 
-        holder.endTask.setOnClickListener {
-            val workOrderId = dataSet[position].workOrderId
-            val workTaskCode = dataSet[position].code
-            val startTime = (0..10).random()
-            val endTime = (11..20).random()
-            val totalTime = endTime - startTime
+        holder.startTask.setOnClickListener {
+            Utils.TASK_RUNNING["${workOrderId}-${workTaskCode}"] = true
+            holder.endTask.isEnabled = true
+            it.isEnabled = false
+
+            val startTime = Calendar.getInstance().time
+            Utils.TASK_START_TIME["${workOrderId}-${workTaskCode}"] = startTime
+
+            val endTime = "---"
+            val totalTime = "---"
             itemClickListener?.let { invoke ->
                 invoke(
-                    workOrderId,
-                    workTaskCode,
-                    startTime.toString(),
-                    endTime.toString(),
-                    totalTime
+                    TaskTime(
+                        workOrderId,
+                        workTaskCode,
+                        startTime.toString(),
+                        endTime,
+                        totalTime
+                    )
+                )
+            }
+        }
+
+        holder.endTask.setOnClickListener {
+            Utils.TASK_RUNNING["${workOrderId}-${workTaskCode}"] = false
+            holder.startTask.isEnabled = true
+            it.isEnabled = false
+
+            val endTime = Calendar.getInstance().time
+            val startTime = Utils.TASK_START_TIME["${workOrderId}-${workTaskCode}"]
+            val totalTime = endTime.time - startTime!!.time
+
+            itemClickListener?.let { invoke ->
+                invoke(
+                    TaskTime(
+                        workOrderId,
+                        workTaskCode,
+                        startTime.toString(),
+                        endTime.toString(),
+                        "${totalTime.toInt() / 1000 / 60 / 60} hours"
+                    )
                 )
             }
         }

@@ -51,7 +51,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/work_labor_date"
         app:layout_constraintTop_toTopOf="parent"
-        app:name="Work Start" />
+        app:name="Work Started At..." />
 
     <com.product.eamfieldaccess.workselection.WorkSelectionItem
         android:id="@+id/work_labor_stop"
@@ -62,7 +62,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/work_labor_id"
         app:layout_constraintTop_toBottomOf="@id/barrier"
-        app:name="Stop" />
+        app:name="Work Finished At..." />
 
     <com.product.eamfieldaccess.workselection.WorkSelectionItem
         android:id="@+id/work_labor_time"
@@ -73,7 +73,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/work_labor_stop"
         app:layout_constraintTop_toBottomOf="@id/work_labor_employee_name"
-        app:name="Work Time" />
+        app:name="Total Work Time" />
 
     <com.product.eamfieldaccess.workselection.WorkSelectionItem
         android:id="@+id/work_labor_system"
