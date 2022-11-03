@@ -4,11 +4,13 @@ import android.app.Activity
 import android.app.Dialog
 import android.util.Log
 import android.view.Window
+import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.EditText
+import android.widget.Spinner
 import androidx.lifecycle.MutableLiveData
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.models.WorkTask
+import com.product.eamfieldaccess.util.TestData
 
 
 class AddTaskDialog {
@@ -16,10 +18,7 @@ class AddTaskDialog {
     private lateinit var cancel: Button
     private lateinit var submit: Button
 
-    private lateinit var category: EditText
-    private lateinit var code: EditText
-    private lateinit var description: EditText
-    private lateinit var notes: EditText
+    private lateinit var code: Spinner
 
     var _addedTask = MutableLiveData<WorkTask>()
 
@@ -33,24 +32,33 @@ class AddTaskDialog {
             cancel = dialog.findViewById(R.id.add_task_cancel)
             submit = dialog.findViewById(R.id.add_task_submit)
 
-            category = dialog.findViewById(R.id.add_task_category)
             code = dialog.findViewById(R.id.add_task_code)
-            description = dialog.findViewById(R.id.add_task_description)
-            notes = dialog.findViewById(R.id.add_task_notes)
+
+            val allTasks = TestData.ALL_WORK_WORK_TASKS
+            val codes = allTasks.map {
+                it.code
+            }
+            val items = codes.toTypedArray()
+            val adapter = ArrayAdapter(
+                activity,
+                android.R.layout.simple_spinner_dropdown_item,
+                items
+            )
+            code.adapter = adapter
+
+            val mappedTasks = mutableMapOf<String, WorkTask>()
+            allTasks.forEach {
+                mappedTasks[it.code] = it
+            }
 
             cancel.setOnClickListener {
                 dialog.dismiss()
             }
-/*            submit.setOnClickListener {
-                val task = WorkTask(
-                    category.text.toString(),
-                    code.text.toString(),
-                    description.text.toString(),
-                    notes.text.toString()
-                )
+            submit.setOnClickListener {
+                val task = mappedTasks[code.selectedItem.toString()]!!
                 _addedTask.value = task
                 dialog.dismiss()
-            }*/
+            }
             dialog.show()
         } else {
             Log.d("AddTaskDialog", "The activity is null!")

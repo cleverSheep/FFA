@@ -1,6 +1,7 @@
 package com.product.eamfieldaccess.workpanel.tabs.worktasks
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,17 +37,17 @@ class WorkTasksFragment : Fragment() {
             binding.rvWorkTasks.adapter = adapter
             binding.rvWorkTasks.layoutManager = LinearLayoutManager(activity)
 
-        }
-/*        binding.fabAddTask.setOnClickListener {
-            alertDialog.showDialog(activity)
-            alertDialog._addedTask.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    adapter.addTask(it)
-                } else {
-                    Log.d("WorkTasksFragment", "Work task is null")
+            binding.fabAddTask.setOnClickListener {
+                alertDialog.showDialog(activity)
+                alertDialog._addedTask.observe(viewLifecycleOwner) { task ->
+                    if (task != null) {
+                        adapter.addTask(task)
+                    } else {
+                        Log.d("WorkTasksFragment", "Work task is null")
+                    }
                 }
             }
-        }*/
+        }
 
         // binding.fabRefreshTasks.setOnClickListener {}
     }

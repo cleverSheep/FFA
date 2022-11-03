@@ -4,6 +4,29 @@ import com.product.eamfieldaccess.models.*
 
 class TestData {
     companion object {
+        val ALL_WORK_WORK_TASKS = arrayListOf(
+            WorkTask(
+                "",
+                "workTaskCategoryZero",
+                "workTaskCodeThree",
+                "workTasDescriptionZero",
+                "workTaskNotesZero"
+            ),
+            WorkTask(
+                "",
+                "workTaskCategoryZero",
+                "workTaskCodeZero",
+                "workTasDescriptionZero",
+                "workTaskNotesZero"
+            ),
+            WorkTask(
+                "",
+                "workTaskCategoryOne",
+                "workTaskCodeOne",
+                "workTasDescriptionZero",
+                "workTaskNotesZero"
+            )
+        )
         val WORKTASKS = arrayListOf(
             WorkTask(
                 "111",
