@@ -14,7 +14,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class WorkTaskAdapter(
-    private val dataSet: ArrayList<WorkTask> = arrayListOf(),
+    private val dataSet: List<WorkTask>,
     private val itemClickListener: ((
         taskTime: TaskTime
     ) -> Unit)? = null
@@ -103,9 +103,4 @@ class WorkTaskAdapter(
     }
 
     override fun getItemCount() = dataSet.size
-
-    fun addTask(task: WorkTask) {
-        dataSet.add(task)
-        notifyItemInserted(dataSet.size - 1);
-    }
 }

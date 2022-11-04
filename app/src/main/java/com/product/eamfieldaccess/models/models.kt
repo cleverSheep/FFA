@@ -6,12 +6,6 @@ data class Employee(
     val sites: List<Site>
 )
 
-data class Site(
-    val name: String,
-    val id: String,
-    val workOrders: List<WorkOrder>
-)
-
 data class WorkOrder(
     val id: String,
     val site: String,
@@ -25,15 +19,15 @@ data class WorkOrder(
     val requester: String,
     val notes: String,
     val standardTask: String,
-    val workTasks: List<WorkTask>,
-    val labor: List<Labor>,
+    var workTasks: ArrayList<WorkTask>,
+    var labor: ArrayList<Labor>,
     val startTime: String,
     val endTime: String,
     val checkList: List<CheckList>
 )
 
 data class WorkTask(
-    val workOrderId: String,
+    var workOrderId: String,
     val category: String,
     val code: String,
     val description: String,
@@ -41,14 +35,6 @@ data class WorkTask(
     val startTime: String = "",
     val endTime: String = "",
     val totalTime: String = ""
-)
-
-data class TaskTime(
-    val workOrderId: String,
-    val workTaskCode: String,
-    val startTime: String = "---",
-    val endTime: String = "---",
-    val totalTime: String = "---"
 )
 
 data class Labor(
@@ -69,3 +55,17 @@ data class CheckList(
     val items: List<String>
 )
 // -------------------- //
+
+data class Site(
+    val name: String,
+    val id: String,
+    val workOrders: List<WorkOrder>
+)
+
+data class TaskTime(
+    val workOrderId: String,
+    val workTaskCode: String,
+    val startTime: String = "---",
+    val endTime: String = "---",
+    val totalTime: String = "---"
+)

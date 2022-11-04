@@ -4,60 +4,73 @@ import com.product.eamfieldaccess.models.*
 
 class TestData {
     companion object {
+        /**
+         * All of the available works tasks. These are the only work tasks we can add to a work order.
+         * The work order id is empty by default, but will be set when it's added to a work order.
+         */
         val ALL_WORK_WORK_TASKS = arrayListOf(
             WorkTask(
-                "",
-                "workTaskCategoryZero",
-                "workTaskCodeThree",
-                "workTasDescriptionZero",
-                "workTaskNotesZero"
+                workOrderId = "",
+                category = "workTaskCategoryZero",
+                code = "workTaskCodeThree",
+                description = "workTasDescriptionZero",
+                notes = "workTaskNotesZero"
             ),
             WorkTask(
-                "",
-                "workTaskCategoryZero",
-                "workTaskCodeZero",
-                "workTasDescriptionZero",
-                "workTaskNotesZero"
+                workOrderId = "",
+                category = "workTaskCategoryZero",
+                code = "workTaskCodeZero",
+                description = "workTasDescriptionZero",
+                notes = "workTaskNotesZero"
             ),
             WorkTask(
-                "",
-                "workTaskCategoryOne",
-                "workTaskCodeOne",
-                "workTasDescriptionZero",
-                "workTaskNotesZero"
+                workOrderId = "",
+                category = "workTaskCategoryOne",
+                code = "workTaskCodeOne",
+                description = "workTasDescriptionZero",
+                notes = "workTaskNotesZero"
             )
         )
+
+        /**
+         * Work tasks that are tied to a single work order. The work task code is unique among all work tasks.
+         */
         val WORKTASKS = arrayListOf(
             WorkTask(
-                "111",
-                "workTaskCategoryZero",
-                "workTaskCodeZero",
-                "workTasDescriptionZero",
-                "workTaskNotesZero"
+                workOrderId = "111",
+                category = "workTaskCategoryZero",
+                code = "workTaskCodeZero",
+                description = "workTasDescriptionZero",
+                notes = "workTaskNotesZero"
             )
         )
         val WORKTASKS_TWO = arrayListOf(
             WorkTask(
-                "222",
-                "workTaskCategoryOne",
-                "workTaskCodeOne",
-                "workTasDescriptionZero",
-                "workTaskNotesZero"
+                workOrderId = "222",
+                category = "workTaskCategoryOne",
+                code = "workTaskCodeOne",
+                description = "workTasDescriptionZero",
+                notes = "workTaskNotesZero"
             )
         )
 
+        /**
+         * This item defines which employee is assigned to a single task. Any updates to work time should be reflected in this date.
+         * It's important that the updates to work task time target the correct labor. For that reason, this class requires a work order id
+         * AND work task code. This requirement will ensure that only tasks with the given work order id and task code update its work task time.
+         */
         val LABOR = arrayListOf(
             Labor(
-                "111",
-                "3221",
-                "workTaskCodeZero",
-                "laborEmployeeNameZero",
-                "laborDateZero",
-                "100",
-                "100",
-                "200",
-                "laborSystemZero",
-                "laborDescriptionZero"
+                workOrderId = "111",
+                employeeId = "3221",
+                workTaskCode = "workTaskCodeZero",
+                employeeName = "laborEmployeeNameZero",
+                date = "laborDateZero",
+                startTime = "100",
+                endTime = "100",
+                totalTime = "200",
+                system = "laborSystemZero",
+                description = "laborDescriptionZero"
             )
         )
         val LABOR_TWO = arrayListOf(
@@ -75,6 +88,10 @@ class TestData {
             )
         )
 
+        /**
+         * In some cases work orders have, for the most part, random tasks that need to be checked off. These tasks are separate from the work
+         * tasks mentioned above. Completing the tasks is not required.
+         */
         val CHECKLISTS = arrayListOf(
             CheckList(
                 "this item needs to be completed", listOf(
@@ -138,24 +155,13 @@ class TestData {
 
         val SITES = listOf(
             Site("siteZero", "000", WORKORDERS)
-            //Site("siteTwo", "000", WORKORDERS_TWO)
-            //Site("siteThree", "000", WORKORDERS)
         )
         val SITES_TWO = listOf(
-            //Site("siteZero", "000", WORKORDERS),
             Site("siteTwo", "000", WORKORDERS_TWO)
-            //Site("siteThree", "000", WORKORDERS)
         )
         val EMPLOYEES = listOf(
             Employee("nameZero", "000", SITES),
             Employee("nameOne", "111", SITES_TWO)
-            // Employee("nameTwo", "000", SITES)
-/*          Employee("nameThree", "000", SITES),
-            Employee("nameFour", "000", SITES),
-            Employee("nameFive", "000", SITES),
-            Employee("nameSix", "000", SITES),
-            Employee("nameSeven", "000", SITES),
-            Employee("nameEight", "000", SITES)*/
         )
     }
 }
