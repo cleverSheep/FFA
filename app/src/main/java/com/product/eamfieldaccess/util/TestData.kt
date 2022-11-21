@@ -11,6 +11,7 @@ class TestData {
         val ALL_WORK_WORK_TASKS = arrayListOf(
             WorkTask(
                 workOrderId = "",
+                employeeId = "",
                 category = "workTaskCategoryZero",
                 code = "workTaskCodeThree",
                 description = "workTasDescriptionZero",
@@ -18,6 +19,7 @@ class TestData {
             ),
             WorkTask(
                 workOrderId = "",
+                employeeId = "",
                 category = "workTaskCategoryZero",
                 code = "workTaskCodeZero",
                 description = "workTasDescriptionZero",
@@ -25,6 +27,7 @@ class TestData {
             ),
             WorkTask(
                 workOrderId = "",
+                employeeId = "",
                 category = "workTaskCategoryOne",
                 code = "workTaskCodeOne",
                 description = "workTasDescriptionZero",
@@ -39,6 +42,7 @@ class TestData {
             WorkTask(
                 workOrderId = "111",
                 category = "workTaskCategoryZero",
+                employeeId = "3220",
                 code = "workTaskCodeZero",
                 description = "workTasDescriptionZero",
                 notes = "workTaskNotesZero"
@@ -48,6 +52,7 @@ class TestData {
             WorkTask(
                 workOrderId = "222",
                 category = "workTaskCategoryOne",
+                employeeId = "3221",
                 code = "workTaskCodeOne",
                 description = "workTasDescriptionZero",
                 notes = "workTaskNotesZero"
@@ -62,7 +67,7 @@ class TestData {
         val LABOR = arrayListOf(
             Labor(
                 workOrderId = "111",
-                employeeId = "3221",
+                employeeId = "3220",
                 workTaskCode = "workTaskCodeZero",
                 employeeName = "laborEmployeeNameZero",
                 date = "laborDateZero",
@@ -113,6 +118,7 @@ class TestData {
             WorkOrder(
                 "111",
                 "workOrderSiteZero",
+                "3220",
                 "workOrderLocationZero",
                 "workOrderUnitZero",
                 "workOrderZero",
@@ -134,6 +140,7 @@ class TestData {
             WorkOrder(
                 "222",
                 "workOrderSiteOne",
+                "3221",
                 "workOrderLocationZero",
                 "workOrderUnitZero",
                 "workOrderOne",
@@ -159,9 +166,10 @@ class TestData {
         val SITES_TWO = listOf(
             Site("siteTwo", "000", WORKORDERS_TWO)
         )
+        val AUTHENTICATED_EMPLOYEE = Employee("authenticated_employee", "3221", SITES_TWO)
         val EMPLOYEES = listOf(
-            Employee("nameZero", "000", SITES),
-            Employee("nameOne", "111", SITES_TWO)
+            AUTHENTICATED_EMPLOYEE,
+            Employee("nameZero", "3220", SITES),
         )
     }
 }

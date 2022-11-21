@@ -13,10 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.product.eamfieldaccess.databinding.FragmentWorkTasksBinding
 import com.product.eamfieldaccess.models.Labor
 import com.product.eamfieldaccess.models.TaskTime
-import com.product.eamfieldaccess.models.WorkOrder
 import com.product.eamfieldaccess.models.WorkTask
+import com.product.eamfieldaccess.util.TestData.Companion.AUTHENTICATED_EMPLOYEE
 import com.product.eamfieldaccess.workselection.WorkOrderViewModel
-import java.util.*
 
 class WorkTasksFragment : Fragment() {
     private val alertDialog = AddTaskDialog()
@@ -38,16 +37,21 @@ class WorkTasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         model.currentWorkOrder.observe(viewLifecycleOwner) { workOrder ->
             val adapter =
-                WorkTaskAdapter(workOrder.workTasks, this::onTaskTimeUpdated)
+                WorkTaskAdapter(
+                    workOrder.workTasks,
+                    this::onTaskTimeUpdated,
+                    workOrder,
+                    this::onEmployeeAdded
+                )
             binding.rvWorkTasks.adapter = adapter
             binding.rvWorkTasks.layoutManager = LinearLayoutManager(activity)
-
+            if (workOrder.employeeId != AUTHENTICATED_EMPLOYEE.id) {
+                binding.fabAddTask.visibility = View.GONE
+            }
             binding.fabAddTask.setOnClickListener {
                 alertDialog.showDialog(activity, this::onTaskAdded, workOrder.id)
             }
         }
-
-        // binding.fabRefreshTasks.setOnClickListener {}
     }
 
     fun onTaskTimeUpdated(
@@ -64,7 +68,14 @@ class WorkTasksFragment : Fragment() {
         }
     }
 
-    fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    fun onEmployeeAdded(labor: Labor) {
+        model.currentWorkOrder.observeOnce(viewLifecycleOwner) { workOrder ->
+            workOrder.labor.add(labor)
+            model.currentWorkOrder.postValue(workOrder)
+        }
+    }
+
+    private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
         observe(lifecycleOwner, object : Observer<T> {
             override fun onChanged(t: T?) {
                 observer.onChanged(t)

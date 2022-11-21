@@ -1,5 +1,6 @@
 package com.product.eamfieldaccess.models
 
+
 data class Employee(
     val name: String,
     val id: String,
@@ -9,6 +10,7 @@ data class Employee(
 data class WorkOrder(
     val id: String,
     val site: String,
+    var employeeId: String,
     val location: String,
     val unit: String,
     val workOrder: String,
@@ -29,6 +31,7 @@ data class WorkOrder(
 data class WorkTask(
     var workOrderId: String,
     val category: String,
+    var employeeId: String,
     val code: String,
     val description: String,
     val notes: String,
@@ -65,6 +68,7 @@ data class Site(
 data class TaskTime(
     val workOrderId: String,
     val workTaskCode: String,
+    val employeeId: String,
     val startTime: String = "---",
     val endTime: String = "---",
     val totalTime: String = "---"

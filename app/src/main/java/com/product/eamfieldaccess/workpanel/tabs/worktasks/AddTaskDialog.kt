@@ -8,10 +8,10 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import com.product.eamfieldaccess.R
-import com.product.eamfieldaccess.models.Employee
 import com.product.eamfieldaccess.models.Labor
 import com.product.eamfieldaccess.models.WorkTask
 import com.product.eamfieldaccess.util.TestData
+import com.product.eamfieldaccess.util.TestData.Companion.AUTHENTICATED_EMPLOYEE
 import java.util.*
 
 
@@ -21,7 +21,6 @@ class AddTaskDialog {
     private lateinit var submit: Button
 
     private lateinit var code: Spinner
-    private lateinit var employees: Spinner
 
     fun showDialog(
         activity: Activity?,
@@ -39,7 +38,6 @@ class AddTaskDialog {
             submit = dialog.findViewById(R.id.add_task_submit)
 
             code = dialog.findViewById(R.id.add_task_code)
-            employees = dialog.findViewById(R.id.add_employee_id)
 
             val sampleTasks = TestData.ALL_WORK_WORK_TASKS
             val workCodes = sampleTasks.map {
@@ -58,31 +56,14 @@ class AddTaskDialog {
                 mappedTasks[it.code] = it
             }
 
-            val sampleEmployees = TestData.EMPLOYEES
-            val employeeIds = sampleEmployees.map {
-                it.id
-            }
-
-            val employeesArray = employeeIds.toTypedArray()
-            val employeesAdapter = ArrayAdapter(
-                activity,
-                android.R.layout.simple_spinner_dropdown_item,
-                employeesArray
-            )
-            employees.adapter = employeesAdapter
-
-            val mappedEmployees = mutableMapOf<String, Employee>()
-            sampleEmployees.forEach {
-                mappedEmployees[it.id] = it
-            }
-
             cancel.setOnClickListener {
                 dialog.dismiss()
             }
             submit.setOnClickListener {
                 val task = mappedTasks[code.selectedItem.toString()]!!
                 task.workOrderId = workOrderId
-                val employee = mappedEmployees[employees.selectedItem.toString()]!!
+                task.employeeId = AUTHENTICATED_EMPLOYEE.id
+                val employee = AUTHENTICATED_EMPLOYEE
                 val labor = Labor(
                     workOrderId,
                     employee.id,

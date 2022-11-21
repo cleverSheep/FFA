@@ -41,7 +41,7 @@ class WorkLaborAdapter(
         holder.date.setContent(dataSet[position].date)
         holder.startTime.setContent(dataSet[position].startTime)
         holder.stopTime.setContent(dataSet[position].endTime)
-        holder.time.setContent(dataSet[position].totalTime.toString())
+        holder.time.setContent(dataSet[position].totalTime)
         holder.system.setContent(dataSet[position].system)
         holder.taskDescription.setContentForEditableText(dataSet[position].description)
 
@@ -51,7 +51,7 @@ class WorkLaborAdapter(
 
     fun updateTaskTime(time: TaskTime) {
         dataSet.forEach { labor ->
-            if (labor.workTaskCode == time.workTaskCode && labor.workOrderId == time.workOrderId) {
+            if (labor.workTaskCode == time.workTaskCode && labor.workOrderId == time.workOrderId && labor.employeeId == time.employeeId) {
                 labor.startTime = time.startTime
                 labor.endTime = time.endTime
                 labor.totalTime = time.totalTime
