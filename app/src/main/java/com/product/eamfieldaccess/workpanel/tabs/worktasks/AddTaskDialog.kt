@@ -69,6 +69,8 @@ class AddTaskDialog {
                     employee.id,
                     task.code,
                     employee.name,
+                    false,
+                    0, 0,
                     Calendar.getInstance().time.toString(),
                     "---",
                     "---",

@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.models.*
+import com.product.eamfieldaccess.util.PausedTime
 import com.product.eamfieldaccess.util.TestData.Companion.AUTHENTICATED_EMPLOYEE
 import com.product.eamfieldaccess.util.Utils
 import com.product.eamfieldaccess.workselection.WorkSelectionItem
@@ -30,6 +31,7 @@ class WorkTaskAdapter(
         val workDescription = view.findViewById<WorkSelectionItem>(R.id.work_task_description)
         val workNotes = view.findViewById<WorkSelectionItem>(R.id.work_task_notes)
         val startTask = view.findViewById<Button>(R.id.button_start)
+        val pauseTask = view.findViewById<Button>(R.id.button_stop)
         val endTask = view.findViewById<Button>(R.id.button_end)
         val signOnTask = view.findViewById<Button>(R.id.sign_on_button)
     }
@@ -86,6 +88,9 @@ class WorkTaskAdapter(
             AUTHENTICATED_EMPLOYEE.id,
             dataSet[position].code,
             AUTHENTICATED_EMPLOYEE.name,
+            false,
+            0,
+            0,
             Calendar.getInstance().time.toString(),
             "---",
             "---",
@@ -98,22 +103,45 @@ class WorkTaskAdapter(
 
     fun trackWorkTime(holder: ViewHolder, position: Int, employeeId: String) {
         holder.endTask.isEnabled = false
+        holder.pauseTask.isEnabled = false
 
         val workOrderId = dataSet[position].workOrderId
         val workTaskCode = dataSet[position].code
 
         if (Utils.TASK_RUNNING["${workOrderId}-${workTaskCode}-${employeeId}"] == true) {
             holder.endTask.isEnabled = true
+            holder.pauseTask.isEnabled = true
             holder.startTask.isEnabled = false
+        } else {
+            val pausedTime = Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"]
+            pausedTime?.let {
+                if (it.isOnBreak) {
+
+                    holder.pauseTask.isEnabled = false
+                    holder.endTask.isEnabled = true
+                    holder.startTask.isEnabled = true
+                }
+            }
         }
 
         holder.startTask.setOnClickListener {
+            // resume the task, so we shouldn't define a start time
+            if (Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"] != null) {
+                val pausedTime = Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"]!!
+                if (pausedTime.isOnBreak) {
+                    pausedTime.isOnBreak = false
+                    pausedTime.totalBreakTime +=
+                        Calendar.getInstance().time.time - pausedTime.timeBreakTaken.time
+                    pausedTime.timeTaskResumed = Calendar.getInstance().time
+                }
+            } else { // start the task, so we should define a start time
+                val startTime = Calendar.getInstance().time
+                Utils.TASK_START_TIME["${workOrderId}-${workTaskCode}-${employeeId}"] = startTime
+            }
             Utils.TASK_RUNNING["${workOrderId}-${workTaskCode}-${employeeId}"] = true
             holder.endTask.isEnabled = true
+            holder.pauseTask.isEnabled = true
             it.isEnabled = false
-
-            val startTime = Calendar.getInstance().time
-            Utils.TASK_START_TIME["${workOrderId}-${workTaskCode}-${employeeId}"] = startTime
 
             val endTime = "---"
             val totalTime = "---"
@@ -123,7 +151,7 @@ class WorkTaskAdapter(
                         workOrderId,
                         workTaskCode,
                         employeeId,
-                        startTime.toString(),
+                        Utils.TASK_START_TIME["${workOrderId}-${workTaskCode}-${employeeId}"].toString(),
                         endTime,
                         totalTime
                     )
@@ -131,14 +159,49 @@ class WorkTaskAdapter(
             }
         }
 
+        holder.pauseTask.setOnClickListener { button ->
+            // The first time the task is paused
+            if (Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"] == null) {
+                val pausedTime = PausedTime(
+                    isOnBreak = true,
+                    totalBreakTime = 0,
+                    timeBreakTaken = Calendar.getInstance().time,
+                    null
+
+                )
+                Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"] = pausedTime
+            } else {
+                val pausedTime = Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"]!!
+                pausedTime.isOnBreak = true
+                pausedTime.timeBreakTaken = Calendar.getInstance().time
+            }
+            Utils.TASK_RUNNING["${workOrderId}-${workTaskCode}-${employeeId}"] = false
+            button.isEnabled = false
+            holder.startTask.isEnabled = true
+            holder.endTask.isEnabled = true
+        }
+
+        // TODO: clear the pause time after a task is finished
         holder.endTask.setOnClickListener {
+            var breakTime = 0L
+            if (Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"] != null) {
+                val pausedTime = Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"]!!
+                if (pausedTime.isOnBreak) {
+                    pausedTime.isOnBreak = false
+                    pausedTime.totalBreakTime +=
+                        Calendar.getInstance().time.time - pausedTime.timeBreakTaken.time
+                }
+                breakTime = pausedTime.totalBreakTime
+                Utils.TASK_PAUSED["${workOrderId}-${workTaskCode}-${employeeId}"] = null
+            }
             Utils.TASK_RUNNING["${workOrderId}-${workTaskCode}-${employeeId}"] = false
             holder.startTask.isEnabled = true
+            holder.pauseTask.isEnabled = false
             it.isEnabled = false
 
             val endTime = Calendar.getInstance().time
             val startTime = Utils.TASK_START_TIME["${workOrderId}-${workTaskCode}-${employeeId}"]
-            val totalTime = endTime.time - startTime!!.time
+            val totalTime = endTime.time - startTime!!.time - breakTime
 
             itemClickListener?.let { invoke ->
                 invoke(
