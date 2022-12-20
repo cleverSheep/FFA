@@ -1,14 +1,20 @@
 package com.product.eamfieldaccess.workpanel.tabs.worktasks
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.product.eamfieldaccess.databinding.FragmentWorkTasksBinding
 import com.product.eamfieldaccess.models.Labor
@@ -17,11 +23,18 @@ import com.product.eamfieldaccess.models.WorkTask
 import com.product.eamfieldaccess.util.TestData.Companion.AUTHENTICATED_EMPLOYEE
 import com.product.eamfieldaccess.workselection.WorkOrderViewModel
 
+
 class WorkTasksFragment : Fragment() {
     private val alertDialog = AddTaskDialog()
 
     private lateinit var model: WorkOrderViewModel
     private lateinit var binding: FragmentWorkTasksBinding
+    private lateinit var workTaskAdapter: WorkTaskAdapter
+
+    private val columns = arrayOf(
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        android.Manifest.permission.READ_EXTERNAL_STORAGE
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +54,12 @@ class WorkTasksFragment : Fragment() {
                     workOrder.workTasks,
                     this::onTaskTimeUpdated,
                     workOrder,
-                    this::onEmployeeAdded
+                    this::onEmployeeAdded,
+                    this::onImagesAdded,
+                    requireContext(),
+                    model
                 )
+            workTaskAdapter = adapter
             binding.rvWorkTasks.adapter = adapter
             binding.rvWorkTasks.layoutManager = LinearLayoutManager(activity)
             if (workOrder.employeeId != AUTHENTICATED_EMPLOYEE.id) {
@@ -50,6 +67,17 @@ class WorkTasksFragment : Fragment() {
             }
             binding.fabAddTask.setOnClickListener {
                 alertDialog.showDialog(activity, this::onTaskAdded, workOrder.id)
+            }
+        }
+        if ((ActivityCompat.checkSelfPermission(
+                requireContext(), columns[0]
+            ) != PackageManager.PERMISSION_GRANTED) &&
+            (ActivityCompat.checkSelfPermission(
+                requireContext(), columns[1]
+            ) != PackageManager.PERMISSION_GRANTED)
+        ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(columns, 123);
             }
         }
     }
@@ -75,6 +103,10 @@ class WorkTasksFragment : Fragment() {
         }
     }
 
+    fun onImagesAdded() {
+        openGallery()
+    }
+
     private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
         observe(lifecycleOwner, object : Observer<T> {
             override fun onChanged(t: T?) {
@@ -82,6 +114,36 @@ class WorkTasksFragment : Fragment() {
                 removeObserver(this)
             }
         })
+    }
+
+    private fun openGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 123)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 123 && resultCode == RESULT_OK) {
+            val list = arrayListOf<Uri>()
+            if (data!!.clipData != null) {
+                val x = data.clipData!!.itemCount
+                for (i in 0 until x) {
+                    list.add(data.clipData!!.getItemAt(i).uri)
+                }
+                model.currentWorkTask.observeOnce(viewLifecycleOwner) { workTask ->
+                    workTaskAdapter.addImages(list, workTask.first, workTask.second)
+                }
+            } else if (data.data != null) {
+                val imgurl = data.data!!.path
+                list.add(Uri.parse(imgurl))
+                model.currentWorkTask.observeOnce(viewLifecycleOwner) { workTask ->
+                    workTaskAdapter.addImages(list, workTask.first, workTask.second)
+                }
+            }
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package com.product.eamfieldaccess.models
 
+import java.io.Serializable
+
 
 data class Employee(
     val name: String,
@@ -26,7 +28,7 @@ data class WorkOrder(
     val startTime: String,
     val endTime: String,
     val checkList: List<CheckList>
-)
+) : Serializable
 
 data class WorkTask(
     var workOrderId: String,
@@ -38,7 +40,7 @@ data class WorkTask(
     val startTime: String = "",
     val endTime: String = "",
     val totalTime: String = ""
-)
+) : Serializable
 
 data class Labor(
     val workOrderId: String,
@@ -54,12 +56,12 @@ data class Labor(
     var totalTime: String,
     val system: String,
     val description: String
-)
+) : Serializable
 
 data class CheckList(
     val title: String,
     val items: List<String>
-)
+) : Serializable
 // -------------------- //
 
 data class Site(

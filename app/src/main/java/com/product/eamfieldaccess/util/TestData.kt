@@ -84,6 +84,8 @@ class TestData {
                 "3221",
                 "workTaskCodeOne",
                 "laborEmployeeNameZero",
+                false,
+                0, 0,
                 "laborDateZero",
                 "100",
                 "100",

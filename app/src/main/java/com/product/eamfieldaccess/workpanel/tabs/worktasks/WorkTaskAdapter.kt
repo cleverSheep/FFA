@@ -1,17 +1,25 @@
 package com.product.eamfieldaccess.workpanel.tabs.worktasks
 
+import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
-import com.product.eamfieldaccess.models.*
+import com.product.eamfieldaccess.models.Labor
+import com.product.eamfieldaccess.models.TaskTime
+import com.product.eamfieldaccess.models.WorkOrder
+import com.product.eamfieldaccess.models.WorkTask
 import com.product.eamfieldaccess.util.PausedTime
 import com.product.eamfieldaccess.util.TestData.Companion.AUTHENTICATED_EMPLOYEE
 import com.product.eamfieldaccess.util.Utils
+import com.product.eamfieldaccess.workselection.WorkOrderViewModel
 import com.product.eamfieldaccess.workselection.WorkSelectionItem
 import java.util.*
+
 
 class WorkTaskAdapter(
     private val dataSet: List<WorkTask>,
@@ -19,10 +27,21 @@ class WorkTaskAdapter(
         taskTime: TaskTime
     ) -> Unit)? = null,
     private val workOrder: WorkOrder,
-    private val addEmployeeToTask: ((
+    private val onEmployeeAdded: ((
         labor: Labor
     ) -> Unit),
+    private val onImagesAdded: () -> Unit,
+    private val context: Context,
+    private val workOrderViewModel: WorkOrderViewModel
 ) : RecyclerView.Adapter<WorkTaskAdapter.ViewHolder>() {
+
+    fun addImages(images: ArrayList<Uri>, holder: ViewHolder, position: Int) {
+        val workTask = holder.images
+        val workTaskImagesAdapter = WorkTaskImagesAdapter(arrayListOf<Uri>())
+        workTask.adapter = workTaskImagesAdapter
+        workTaskImagesAdapter.addImages(images)
+        notifyItemChanged(position)
+    }
 
     class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
@@ -34,6 +53,8 @@ class WorkTaskAdapter(
         val pauseTask = view.findViewById<Button>(R.id.button_stop)
         val endTask = view.findViewById<Button>(R.id.button_end)
         val signOnTask = view.findViewById<Button>(R.id.sign_on_button)
+        val addImages = view.findViewById<Button>(R.id.add_images_button)
+        val images = view.findViewById<RecyclerView>(R.id.images_recycler)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,6 +74,14 @@ class WorkTaskAdapter(
         holder.workDescription.setContent(dataSet[position].description)
         holder.workNotes.setContentForEditableText(dataSet[position].notes)
         holder.signOnTask.visibility = View.GONE
+        holder.addImages.setOnClickListener {
+            workOrderViewModel.currentWorkTask.postValue(Pair(holder, position))
+            onImagesAdded()
+        }
+        val layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        holder.images.layoutManager = layoutManager
+
         var employeeId = ""
 
         val taskCode =
@@ -98,7 +127,7 @@ class WorkTaskAdapter(
             dataSet[position].category,
             dataSet[position].description
         )
-        addEmployeeToTask(labor)
+        onEmployeeAdded(labor)
     }
 
     fun trackWorkTime(holder: ViewHolder, position: Int, employeeId: String) {
