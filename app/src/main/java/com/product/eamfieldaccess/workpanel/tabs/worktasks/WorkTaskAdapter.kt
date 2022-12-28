@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
@@ -31,16 +32,18 @@ class WorkTaskAdapter(
         labor: Labor
     ) -> Unit),
     private val onImagesAdded: () -> Unit,
-    private val context: Context,
     private val workOrderViewModel: WorkOrderViewModel
 ) : RecyclerView.Adapter<WorkTaskAdapter.ViewHolder>() {
 
-    fun addImages(images: ArrayList<Uri>, holder: ViewHolder, position: Int) {
-        val workTask = holder.images
-        val workTaskImagesAdapter = WorkTaskImagesAdapter(arrayListOf<Uri>())
-        workTask.adapter = workTaskImagesAdapter
-        workTaskImagesAdapter.addImages(images)
-        notifyItemChanged(position)
+    fun addImages(images: ArrayList<Uri>, position: Int) {
+        images.forEachIndexed { index, _ ->
+            if (index == 0) {
+                dataSet[position].attachmentLabel = "Attachment Added"
+            } else {
+                dataSet[position].attachmentLabel += "\nAttachment Added"
+            }
+            notifyDataSetChanged()
+        }
     }
 
     class ViewHolder(view: View) :
@@ -53,8 +56,8 @@ class WorkTaskAdapter(
         val pauseTask = view.findViewById<Button>(R.id.button_stop)
         val endTask = view.findViewById<Button>(R.id.button_end)
         val signOnTask = view.findViewById<Button>(R.id.sign_on_button)
+        val attachmentLabel = view.findViewById<TextView>(R.id.attachment_label)
         val addImages = view.findViewById<Button>(R.id.add_images_button)
-        val images = view.findViewById<RecyclerView>(R.id.images_recycler)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -75,12 +78,10 @@ class WorkTaskAdapter(
         holder.workNotes.setContentForEditableText(dataSet[position].notes)
         holder.signOnTask.visibility = View.GONE
         holder.addImages.setOnClickListener {
-            workOrderViewModel.currentWorkTask.postValue(Pair(holder, position))
             onImagesAdded()
+            workOrderViewModel.currentWorkTask.postValue(position)
         }
-        val layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        holder.images.layoutManager = layoutManager
+        holder.attachmentLabel.text = dataSet[position].attachmentLabel
 
         var employeeId = ""
 

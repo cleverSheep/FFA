@@ -39,7 +39,8 @@ data class WorkTask(
     val notes: String,
     val startTime: String = "",
     val endTime: String = "",
-    val totalTime: String = ""
+    val totalTime: String = "",
+    var attachmentLabel: String = ""
 ) : Serializable
 
 data class Labor(

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -56,7 +57,6 @@ class WorkTasksFragment : Fragment() {
                     workOrder,
                     this::onEmployeeAdded,
                     this::onImagesAdded,
-                    requireContext(),
                     model
                 )
             workTaskAdapter = adapter
@@ -128,19 +128,27 @@ class WorkTasksFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 123 && resultCode == RESULT_OK) {
             val list = arrayListOf<Uri>()
+            if (list.size > 3) {
+                Toast.makeText(
+                    requireContext(),
+                    "A maximum of three images are allowed",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return
+            }
             if (data!!.clipData != null) {
                 val x = data.clipData!!.itemCount
                 for (i in 0 until x) {
                     list.add(data.clipData!!.getItemAt(i).uri)
                 }
                 model.currentWorkTask.observeOnce(viewLifecycleOwner) { workTask ->
-                    workTaskAdapter.addImages(list, workTask.first, workTask.second)
+                    workTaskAdapter.addImages(list, workTask)
                 }
             } else if (data.data != null) {
                 val imgurl = data.data!!.path
                 list.add(Uri.parse(imgurl))
                 model.currentWorkTask.observeOnce(viewLifecycleOwner) { workTask ->
-                    workTaskAdapter.addImages(list, workTask.first, workTask.second)
+                    workTaskAdapter.addImages(list, workTask)
                 }
             }
         }
