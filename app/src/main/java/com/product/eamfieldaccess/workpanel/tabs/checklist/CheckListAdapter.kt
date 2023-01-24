@@ -51,7 +51,9 @@ class CheckListMainAdapter(
     ) {
         holder.checkListItem.setName(dataSet[position].title)
         holder.checkListItem.addCheckList(dataSet.map {
-            it.items
+            it.items.map { item ->
+                item.lineText
+            }
         }.flatten())
     }
 

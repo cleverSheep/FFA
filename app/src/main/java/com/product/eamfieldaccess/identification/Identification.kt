@@ -5,13 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
-import com.product.eamfieldaccess.util.TestData
+import com.product.eamfieldaccess.util.Utils
+import com.product.eamfieldaccess.viewmodels.EmployeeViewModel
+import org.json.JSONObject
 
 class Identification : Fragment() {
     private lateinit var employees: RecyclerView
+    private lateinit var employeeViewModel: EmployeeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +28,46 @@ class Identification : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         employees = view.findViewById(R.id.rv_employees)
-        val adapter = IdentificationAdapter(TestData.EMPLOYEES)
+        employeeViewModel = ViewModelProvider(this)[EmployeeViewModel::class.java]
+        val adapter = IdentificationAdapter()
+        fetchAuthEmployee(adapter)
+        fetchAllEmployees(adapter)
         employees.adapter = adapter
         employees.layoutManager = LinearLayoutManager(activity)
     }
+
+    fun fetchAuthEmployee(adapter: IdentificationAdapter) {
+        employeeViewModel.getAuthEmployee(
+            authorization = "1XII/y1Mdh4MHVSk9iKpZbWdVsjjjvi0jRtDm4rzKPUiyjtF07kWbmCmMxr" +
+                    "BKMJ/E1jAy7pY7+0cx/V2zeHAKeheB9L1uerdHImfl12bacCMpGrkNnmG/2Wl+6cpsqKpdUTrGOIO/TJf" +
+                    "jsHAjEL+wAMRbMCJUStM6l+f/IJMCvk7h+M2UZRjxhtaHBGGZqBZ9E" +
+                    "ZswfDv7I0hmBGd7pFMbZrcESCzSpOCh0txT2hmL3XvHG2fnokQlrRYPgU/UztF",
+            command = "ffa.getauthenticatedemployee",
+            data = JSONObject().put("timestamp", "")
+        )
+        employeeViewModel.authEmployee.observe(viewLifecycleOwner) { employee ->
+            Utils.AUTH_EMPLOYEE = employee
+            employee?.let { adapter.addEmployee(it) }
+        }
+    }
+
+    fun fetchAllEmployees(adapter: IdentificationAdapter) {
+        employeeViewModel.getAllEmployees(
+            authorization = "1XII/y1Mdh4MHVSk9iKpZbWdVsjjjvi0jRtDm4rzKPUiyjtF07kWbmCmMxr" +
+                    "BKMJ/E1jAy7pY7+0cx/V2zeHAKeheB9L1uerdHImfl12bacCMpGrkNnmG/2Wl+6cpsqKpdUTrGOIO/TJf" +
+                    "jsHAjEL+wAMRbMCJUStM6l+f/IJMCvk7h+M2UZRjxhtaHBGGZqBZ9E" +
+                    "ZswfDv7I0hmBGd7pFMbZrcESCzSpOCh0txT2hmL3XvHG2fnokQlrRYPgU/UztF",
+            command = "ffa.getallemployees",
+            data = JSONObject().put("timestamp", "")
+        )
+        employeeViewModel.allEmployees.observe(viewLifecycleOwner) { employees ->
+            employees?.let {
+                val filterEmployees = it.employees.filter { employee ->
+                    employee.uuid != Utils.AUTH_EMPLOYEE?.uuid
+                }
+                adapter.addEmployees(filterEmployees)
+            }
+        }
+    }
+
 }

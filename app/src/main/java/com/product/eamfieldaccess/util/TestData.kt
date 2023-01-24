@@ -1,15 +1,13 @@
 package com.product.eamfieldaccess.util
 
-import com.product.eamfieldaccess.models.*
-
 class TestData {
     companion object {
         /**
          * All of the available works tasks. These are the only work tasks we can add to a work order.
          * The work order id is empty by default, but will be set when it's added to a work order.
          */
-        val ALL_WORK_WORK_TASKS = arrayListOf(
-            WorkTask(
+/*        val ALL_WORK_WORK_TASKS = arrayListOf(
+            WorkTaskExtension(
                 workOrderId = "",
                 employeeId = "",
                 category = "workTaskCategoryZero",
@@ -17,7 +15,7 @@ class TestData {
                 description = "workTasDescriptionZero",
                 notes = "workTaskNotesZero"
             ),
-            WorkTask(
+            WorkTaskExtension(
                 workOrderId = "",
                 employeeId = "",
                 category = "workTaskCategoryZero",
@@ -25,21 +23,21 @@ class TestData {
                 description = "workTasDescriptionZero",
                 notes = "workTaskNotesZero"
             ),
-            WorkTask(
+            WorkTaskExtension(
                 workOrderId = "",
                 employeeId = "",
                 category = "workTaskCategoryOne",
                 code = "workTaskCodeOne",
                 description = "workTasDescriptionZero",
                 notes = "workTaskNotesZero"
-            )
-        )
+            )*/
+        //)
 
         /**
          * Work tasks that are tied to a single work order. The work task code is unique among all work tasks.
          */
-        val WORKTASKS = arrayListOf(
-            WorkTask(
+/*        val WORKTASKS = arrayListOf(
+            WorkTaskExtension(
                 workOrderId = "111",
                 category = "workTaskCategoryZero",
                 employeeId = "3220",
@@ -49,27 +47,26 @@ class TestData {
             )
         )
         val WORKTASKS_TWO = arrayListOf(
-            WorkTask(
+            WorkTaskExtension(
                 workOrderId = "222",
                 category = "workTaskCategoryOne",
                 employeeId = "3221",
                 code = "workTaskCodeOne",
                 description = "workTasDescriptionZero",
                 notes = "workTaskNotesZero"
-            )
-        )
+            )*/
+        //)
 
         /**
          * This item defines which employee is assigned to a single task. Any updates to work time should be reflected in this date.
          * It's important that the updates to work task time target the correct labor. For that reason, this class requires a work order id
          * AND work task code. This requirement will ensure that only tasks with the given work order id and task code update its work task time.
          */
-        val LABOR = arrayListOf(
+/*        val LABOR = arrayListOf(
             Labor(
                 workOrderId = "111",
                 employeeId = "3220",
                 workTaskCode = "workTaskCodeZero",
-                employeeName = "laborEmployeeNameZero",
                 date = "laborDateZero",
                 startTime = "100",
                 endTime = "100",
@@ -93,13 +90,13 @@ class TestData {
                 "laborSystemZero",
                 "laborDescriptionZero"
             )
-        )
+        )*/
 
         /**
          * In some cases work orders have, for the most part, random tasks that need to be checked off. These tasks are separate from the work
          * tasks mentioned above. Completing the tasks is not required.
          */
-        val CHECKLISTS = arrayListOf(
+/*        val CHECKLISTS = arrayListOf(
             CheckList(
                 "this item needs to be completed", listOf(
                     "here is some random text that describes the first item that describes the list",
@@ -159,10 +156,10 @@ class TestData {
                 "2pm",
                 CHECKLISTS
             )
-        )
+        )*/
 
 
-        val SITES = listOf(
+/*        val SITES = listOf(
             Site("siteZero", "000", WORKORDERS)
         )
         val SITES_TWO = listOf(
@@ -172,6 +169,6 @@ class TestData {
         val EMPLOYEES = listOf(
             AUTHENTICATED_EMPLOYEE,
             Employee("nameZero", "3220", SITES),
-        )
+        )*/
     }
 }

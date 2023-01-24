@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
-import com.product.eamfieldaccess.models.Labor
+import com.product.eamfieldaccess.models.WorkLaborExtension
 import com.product.eamfieldaccess.models.TaskTime
 import com.product.eamfieldaccess.workselection.WorkSelectionItem
 
 class WorkLaborAdapter(
-    private val dataSet: ArrayList<Labor> = arrayListOf()
+    private val dataSet: ArrayList<WorkLaborExtension> = arrayListOf()
 ) : RecyclerView.Adapter<WorkLaborAdapter.ViewHolder>() {
     class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
@@ -36,7 +36,7 @@ class WorkLaborAdapter(
         holder: ViewHolder,
         position: Int
     ) {
-        holder.employeeName.setContent(dataSet[position].employeeName)
+        // holder.employeeName.setContent(dataSet[position].employeeName)
         holder.id.setContent(dataSet[position].employeeId)
         holder.date.setContent(dataSet[position].date)
         holder.startTime.setContent(dataSet[position].startTime)
@@ -60,7 +60,7 @@ class WorkLaborAdapter(
         notifyDataSetChanged()
     }
 
-    fun addLaborItems(items: ArrayList<Labor>) {
+    fun addLaborItems(items: ArrayList<WorkLaborExtension>) {
         dataSet.addAll(items)
         notifyDataSetChanged()
     }

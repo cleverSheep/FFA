@@ -26,7 +26,7 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        model.currentWorkOrder.observe(viewLifecycleOwner) {
+        model.currentWorkOrderExtension.observe(viewLifecycleOwner) {
             binding.edittextWorkOrder.hint = it.workOrder
             binding.edittextWorkSite.hint = it.site
             binding.edittextUnit.hint = it.unit

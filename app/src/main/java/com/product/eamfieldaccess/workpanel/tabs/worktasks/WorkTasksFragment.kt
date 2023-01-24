@@ -18,10 +18,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.product.eamfieldaccess.databinding.FragmentWorkTasksBinding
-import com.product.eamfieldaccess.models.Labor
+import com.product.eamfieldaccess.models.WorkLaborExtension
 import com.product.eamfieldaccess.models.TaskTime
-import com.product.eamfieldaccess.models.WorkTask
-import com.product.eamfieldaccess.util.TestData.Companion.AUTHENTICATED_EMPLOYEE
+import com.product.eamfieldaccess.models.WorkTaskExtension
+import com.product.eamfieldaccess.util.Utils
 import com.product.eamfieldaccess.workselection.WorkOrderViewModel
 
 
@@ -49,7 +49,7 @@ class WorkTasksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        model.currentWorkOrder.observe(viewLifecycleOwner) { workOrder ->
+        model.currentWorkOrderExtension.observe(viewLifecycleOwner) { workOrder ->
             val adapter =
                 WorkTaskAdapter(
                     workOrder.workTasks,
@@ -62,7 +62,7 @@ class WorkTasksFragment : Fragment() {
             workTaskAdapter = adapter
             binding.rvWorkTasks.adapter = adapter
             binding.rvWorkTasks.layoutManager = LinearLayoutManager(activity)
-            if (workOrder.employeeId != AUTHENTICATED_EMPLOYEE.id) {
+            if (workOrder.employeeUUID != Utils.AUTH_EMPLOYEE!!.uuid) {
                 binding.fabAddTask.visibility = View.GONE
             }
             binding.fabAddTask.setOnClickListener {
@@ -88,18 +88,18 @@ class WorkTasksFragment : Fragment() {
         model.currentTime.postValue(taskTime)
     }
 
-    fun onTaskAdded(workTask: WorkTask, labor: Labor) {
-        model.currentWorkOrder.observeOnce(viewLifecycleOwner) { workOrder ->
-            workOrder.workTasks.add(workTask)
-            workOrder.labor.add(labor)
-            model.currentWorkOrder.postValue(workOrder)
+    fun onTaskAdded(workTaskExtension: WorkTaskExtension, workLaborExtension: WorkLaborExtension) {
+        model.currentWorkOrderExtension.observeOnce(viewLifecycleOwner) { workOrder ->
+            workOrder.workTasks.add(workTaskExtension)
+            workOrder.workLabor.add(workLaborExtension)
+            model.currentWorkOrderExtension.postValue(workOrder)
         }
     }
 
-    fun onEmployeeAdded(labor: Labor) {
-        model.currentWorkOrder.observeOnce(viewLifecycleOwner) { workOrder ->
-            workOrder.labor.add(labor)
-            model.currentWorkOrder.postValue(workOrder)
+    fun onEmployeeAdded(workLaborExtension: WorkLaborExtension) {
+        model.currentWorkOrderExtension.observeOnce(viewLifecycleOwner) { workOrder ->
+            workOrder.workLabor.add(workLaborExtension)
+            model.currentWorkOrderExtension.postValue(workOrder)
         }
     }
 

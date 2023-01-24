@@ -30,8 +30,8 @@ class CheckListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        model.currentWorkOrder.observe(viewLifecycleOwner) {
-            val adapter = CheckListMainAdapter(it.checkList as ArrayList<CheckList>)
+        model.currentWorkOrderExtension.observe(viewLifecycleOwner) {
+            val adapter = CheckListMainAdapter(it.checkLists as ArrayList<CheckList>)
             binding.rvCheckList.adapter = adapter
             binding.rvCheckList.layoutManager = LinearLayoutManager(activity)
         }

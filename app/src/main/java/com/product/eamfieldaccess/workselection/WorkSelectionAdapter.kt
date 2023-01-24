@@ -7,11 +7,11 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
-import com.product.eamfieldaccess.models.WorkOrder
+import com.product.eamfieldaccess.models.WorkOrderExtension
 
 class WorkSelectionAdapter(
-    private val workOrders: List<WorkOrder>,
-    private val workOrderSelected: (workOrder: WorkOrder) -> Unit
+    private val workOrderExtensions: List<WorkOrderExtension>,
+    private val workOrderSelected: (workOrderExtension: WorkOrderExtension) -> Unit
 ) :
     RecyclerView.Adapter<WorkSelectionAdapter.ViewHolder>() {
 
@@ -42,19 +42,21 @@ class WorkSelectionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = workOrders[position]
+        val data = workOrderExtensions[position]
         holder.workOrderId.text = data.workOrder
         holder.workOrderSite.setContent(data.site)
         holder.workOrderUnit.setContent(data.unit)
         holder.workOrderStatus.setContent(data.status)
         holder.workOrderActivity.setContent(data.activity)
+/*
         holder.workOrderMaintLevel.setContent(data.maintenance)
         holder.workOrderNotes.setContent(data.notes)
+*/
         holder.itemView.setOnClickListener { view ->
             workOrderSelected(data)
             view.findNavController().navigate(R.id.action_workSelection_to_workPanel)
         }
     }
 
-    override fun getItemCount() = workOrders.size
+    override fun getItemCount() = workOrderExtensions.size
 }

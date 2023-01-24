@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.identification.IdentificationAdapter
-import com.product.eamfieldaccess.models.WorkOrder
-import com.product.eamfieldaccess.util.TestData
+import com.product.eamfieldaccess.models.WorkOrderExtension
 
 class WorkSelection : Fragment() {
     private lateinit var workOrders: RecyclerView
@@ -36,7 +35,7 @@ class WorkSelection : Fragment() {
         workOrders.layoutManager = LinearLayoutManager(activity)
     }
 
-    fun onWorkOrderSelected(workOrder: WorkOrder) {
-        model.currentWorkOrder.postValue(workOrder)
+    fun onWorkOrderSelected(workOrderExtension: WorkOrderExtension) {
+        model.currentWorkOrderExtension.postValue(workOrderExtension)
     }
 }

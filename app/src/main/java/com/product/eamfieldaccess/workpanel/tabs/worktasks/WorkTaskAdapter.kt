@@ -1,21 +1,18 @@
 package com.product.eamfieldaccess.workpanel.tabs.worktasks
 
-import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
-import com.product.eamfieldaccess.models.Labor
+import com.product.eamfieldaccess.models.WorkLaborExtension
 import com.product.eamfieldaccess.models.TaskTime
-import com.product.eamfieldaccess.models.WorkOrder
-import com.product.eamfieldaccess.models.WorkTask
+import com.product.eamfieldaccess.models.WorkOrderExtension
+import com.product.eamfieldaccess.models.WorkTaskExtension
 import com.product.eamfieldaccess.util.PausedTime
-import com.product.eamfieldaccess.util.TestData.Companion.AUTHENTICATED_EMPLOYEE
 import com.product.eamfieldaccess.util.Utils
 import com.product.eamfieldaccess.workselection.WorkOrderViewModel
 import com.product.eamfieldaccess.workselection.WorkSelectionItem
@@ -23,13 +20,13 @@ import java.util.*
 
 
 class WorkTaskAdapter(
-    private val dataSet: List<WorkTask>,
+    private val dataSet: List<WorkTaskExtension>,
     private val itemClickListener: ((
         taskTime: TaskTime
     ) -> Unit)? = null,
-    private val workOrder: WorkOrder,
+    private val workOrderExtension: WorkOrderExtension,
     private val onEmployeeAdded: ((
-        labor: Labor
+        workLaborExtension: WorkLaborExtension
     ) -> Unit),
     private val onImagesAdded: () -> Unit,
     private val workOrderViewModel: WorkOrderViewModel
@@ -86,21 +83,21 @@ class WorkTaskAdapter(
         var employeeId = ""
 
         val taskCode =
-            "${dataSet[position].workOrderId}-${dataSet[position].code}-${AUTHENTICATED_EMPLOYEE.id}"
+            "${dataSet[position].workOrderId}-${dataSet[position].code}-${Utils.AUTH_EMPLOYEE!!.uuid}"
         holder.signOnTask.setOnClickListener {
             signEmployeeToTask(position)
             Utils.CURRENT_EMPLOYEE_ADDED_TASK.add(taskCode)
         }
-        if (workOrder.employeeId != AUTHENTICATED_EMPLOYEE.id && !Utils.CURRENT_EMPLOYEE_ADDED_TASK.contains(
+        if (workOrderExtension.employeeUUID != Utils.AUTH_EMPLOYEE!!.uuid && !Utils.CURRENT_EMPLOYEE_ADDED_TASK.contains(
                 taskCode
             )
         ) {
             holder.signOnTask.visibility = View.VISIBLE
             holder.startTask.isEnabled = false
             holder.endTask.isEnabled = false
-            employeeId = AUTHENTICATED_EMPLOYEE.id
-        } else if (workOrder.employeeId != AUTHENTICATED_EMPLOYEE.id) {
-            employeeId = AUTHENTICATED_EMPLOYEE.id
+            employeeId = Utils.AUTH_EMPLOYEE!!.uuid
+        } else if (workOrderExtension.employeeUUID != Utils.AUTH_EMPLOYEE!!.uuid) {
+            employeeId = Utils.AUTH_EMPLOYEE!!.uuid
         } else {
             employeeId = dataSet[position].employeeId
             holder.signOnTask.visibility = View.GONE
@@ -113,11 +110,11 @@ class WorkTaskAdapter(
 
     fun signEmployeeToTask(position: Int) {
         // create a new labor entry w/ the authenticated employee info
-        val labor = Labor(
-            workOrder.id,
-            AUTHENTICATED_EMPLOYEE.id,
+        val workLaborExtension = WorkLaborExtension(
+            workOrderExtension.id,
+            Utils.AUTH_EMPLOYEE!!.uuid,
             dataSet[position].code,
-            AUTHENTICATED_EMPLOYEE.name,
+            Utils.AUTH_EMPLOYEE!!.employeeName,
             false,
             0,
             0,
@@ -128,7 +125,7 @@ class WorkTaskAdapter(
             dataSet[position].category,
             dataSet[position].description
         )
-        onEmployeeAdded(labor)
+        onEmployeeAdded(workLaborExtension)
     }
 
     fun trackWorkTime(holder: ViewHolder, position: Int, employeeId: String) {

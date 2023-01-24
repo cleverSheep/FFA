@@ -7,12 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.databinding.FragmentLaborBinding
-import com.product.eamfieldaccess.databinding.FragmentWorkTasksBinding
-import com.product.eamfieldaccess.models.Labor
-import com.product.eamfieldaccess.util.TestData
 import com.product.eamfieldaccess.workselection.WorkOrderViewModel
 
 class LaborFragment : Fragment() {
@@ -33,9 +28,9 @@ class LaborFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapter = WorkLaborAdapter()
 
-        model.currentWorkOrder.observe(viewLifecycleOwner) {
+        model.currentWorkOrderExtension.observe(viewLifecycleOwner) {
             binding.rvLabor.adapter = adapter
-            adapter.addLaborItems(it.labor)
+            adapter.addLaborItems(it.workLabor)
             binding.rvLabor.layoutManager = LinearLayoutManager(activity)
         }
 

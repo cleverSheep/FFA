@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_work_task"
     android:padding="48dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,8 +94,8 @@
             android:text="Open"
             android:textSize="42sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tv_unit"
             app:layout_constraintBottom_toBottomOf="@id/edittext_open"
+            app:layout_constraintStart_toStartOf="@+id/tv_unit"
             app:layout_constraintTop_toTopOf="@id/edittext_open" />
 
         <EditText
