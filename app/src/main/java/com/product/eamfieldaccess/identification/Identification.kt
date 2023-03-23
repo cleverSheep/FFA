@@ -1,21 +1,26 @@
 package com.product.eamfieldaccess.identification
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.product.eamfieldaccess.MainApplication
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.util.Utils
 import com.product.eamfieldaccess.viewmodels.EmployeeViewModel
+import com.product.eamfieldaccess.viewmodels.EmployeeViewModelFactory
 import org.json.JSONObject
 
 class Identification : Fragment() {
     private lateinit var employees: RecyclerView
-    private lateinit var employeeViewModel: EmployeeViewModel
+    private val employeeViewModel: EmployeeViewModel by viewModels {
+        EmployeeViewModelFactory((activity?.application as MainApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,12 +33,18 @@ class Identification : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         employees = view.findViewById(R.id.rv_employees)
-        employeeViewModel = ViewModelProvider(this)[EmployeeViewModel::class.java]
         val adapter = IdentificationAdapter()
         fetchAuthEmployee(adapter)
         fetchAllEmployees(adapter)
         employees.adapter = adapter
         employees.layoutManager = LinearLayoutManager(activity)
+        employeeViewModel.employees.observe(viewLifecycleOwner) { employees ->
+            employees.forEach {
+                Log.d("Employee name: ", it.employeeEntity.employeeName)
+                Log.d("Employee uuid: ", it.employeeEntity.id.toString())
+                Log.d("Employee primary key: ", "${it.employeeEntity.id ?: -40}")
+            }
+        }
     }
 
     fun fetchAuthEmployee(adapter: IdentificationAdapter) {

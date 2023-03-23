@@ -31,11 +31,11 @@ class IdentificationAdapter : RecyclerView.Adapter<IdentificationAdapter.ViewHol
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = employees[position]
-        holder.employeeId.setContent(data.uuid)
-        holder.employeeName.setContent(data.employeeName)
+        val employee = employees[position]
+        holder.employeeId.setContent(employee.uuid)
+        holder.employeeName.setContent(employee.employeeName)
 
-        val workOrders = employees[position].workOrders
+        val workOrders = employee.workOrders
         val bundle = Bundle()
         val serializedWorkOrders = WorkOrders(mapWorkOrder(workOrders))
         bundle.putSerializable("work_orders", serializedWorkOrders)
@@ -46,11 +46,13 @@ class IdentificationAdapter : RecyclerView.Adapter<IdentificationAdapter.ViewHol
 
     override fun getItemCount() = employees.size
 
+    // TODO: add employees from database
     fun addEmployees(employees: List<Employee>) {
         this.employees.addAll(employees)
         notifyDataSetChanged()
     }
 
+    // TODO: add employee from database
     fun addEmployee(employee: Employee) {
         this.employees.add(employee)
         notifyDataSetChanged()

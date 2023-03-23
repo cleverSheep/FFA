@@ -5,6 +5,23 @@ import java.io.Serializable
 // Response after fetching login auth code
 data class UserAuth(val authorization: String)
 
+/**
+ * There is a one-to-many relationship between Employee and WorkOrder;
+ * one employee is mapped to many work orders. A work order contains MANY
+ * work tasks, work labor, and check lists. Therefore, there is a nested mapping.
+ *
+ *                      EMPLOYEE (o)
+ *                          |
+ *                          |
+ *                          V
+ *                        WORK ORDER (m)
+ *                       /      |       \
+ *                WORK TASKS(m) WORK LABOR(m)  CHECKLISTS(m)
+ *
+ * We'll need to model this nested relationship.
+ *
+ */
+
 data class Employee(
     val employeeName: String,
     val uuid: String,

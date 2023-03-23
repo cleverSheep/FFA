@@ -1,16 +1,22 @@
 package com.product.eamfieldaccess.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.product.eamfieldaccess.models.EmployeeEntity
+import com.product.eamfieldaccess.models.EmployeeWorkOrderDetail
 import com.product.eamfieldaccess.repositories.EmployeeRepository
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
-class EmployeeViewModel(application: Application) : AndroidViewModel(application) {
-    private var employeeRepository: EmployeeRepository = EmployeeRepository()
+class EmployeeViewModel(private val employeeRepository: EmployeeRepository) : ViewModel() {
 
     val authEmployee = employeeRepository.authEmployee
     val allEmployees = employeeRepository.allEmployees
+
+    val employees: LiveData<List<EmployeeWorkOrderDetail>> = employeeRepository.employees.asLiveData()
+
+    fun insert(employeeEntity: EmployeeEntity) = viewModelScope.launch {
+        employeeRepository.insert(employeeEntity)
+    }
 
     fun getAuthEmployee(
         authorization: String,
@@ -42,5 +48,16 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
 
     private fun getAllEmployees(user: JSONObject) {
         employeeRepository.fetchAllEmployees(user)
+    }
+}
+
+class EmployeeViewModelFactory(private val repository: EmployeeRepository) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(EmployeeViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return EmployeeViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

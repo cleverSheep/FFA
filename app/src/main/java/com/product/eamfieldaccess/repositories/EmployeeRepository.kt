@@ -1,10 +1,15 @@
 package com.product.eamfieldaccess.repositories
 
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.MutableLiveData
+import com.product.eamfieldaccess.database.EmployeeDao
 import com.product.eamfieldaccess.models.Employee
+import com.product.eamfieldaccess.models.EmployeeEntity
+import com.product.eamfieldaccess.models.EmployeeWorkOrderDetail
 import com.product.eamfieldaccess.models.Employees
 import com.product.eamfieldaccess.network.APIClient
 import com.product.eamfieldaccess.network.EmployeeAPI
+import kotlinx.coroutines.flow.Flow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -14,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EmployeeRepository {
+class EmployeeRepository(private val employeeDao: EmployeeDao) {
     private val retrofit = APIClient.getClient().create(EmployeeAPI::class.java)
 
     private val _authEmployee = MutableLiveData<Employee?>()
@@ -22,6 +27,8 @@ class EmployeeRepository {
 
     val authEmployee = _authEmployee
     val allEmployees = _allEmployees
+
+    val employees: Flow<List<EmployeeWorkOrderDetail>> = employeeDao.getEmployees()
 
     fun fetchAuthEmployee(user: JSONObject) {
         var requestBody: RequestBody? = null
@@ -65,5 +72,10 @@ class EmployeeRepository {
                 }
             }
         )
+    }
+
+    @WorkerThread
+    suspend fun insert(employeeEntity: EmployeeEntity) {
+        employeeDao.insert(employeeEntity)
     }
 }
