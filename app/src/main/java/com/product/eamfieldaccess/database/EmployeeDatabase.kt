@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.product.eamfieldaccess.models.*
 import kotlinx.coroutines.CoroutineScope
@@ -12,13 +13,15 @@ import kotlinx.coroutines.launch
 @Database(
     entities = arrayOf(
         EmployeeEntity::class,
+        Employee::class,
         WorkOrderEntity::class,
         WorkTaskEntity::class,
         WorkLaborEntity::class,
         CheckListEntity::class,
         CheckListItemEntity::class
-    ), version = 2, exportSchema = false
+    ), version = 5, exportSchema = false
 )
+@TypeConverters(EmployeeDataConverter::class)
 abstract class EmployeeRoomDatabase : RoomDatabase() {
 
     abstract fun employeeDao(): EmployeeDao
@@ -31,8 +34,8 @@ abstract class EmployeeRoomDatabase : RoomDatabase() {
             INSTANCE?.let { database ->
                 scope.launch {
                     var employeeDao = database.employeeDao()
-                    var employee = EmployeeEntity("Jon Robers", "0001")
-                    var employeeTwo = EmployeeEntity("Sarah Shells", "0002")
+                    var employee = Employee("0001", "Jon Robers")
+                    var employeeTwo = Employee("0002", "Sarah Shells")
                     employeeDao.insert(employee)
                     employeeDao.insert(employeeTwo)
                 }

@@ -75,7 +75,7 @@ class EmployeeRepository(private val employeeDao: EmployeeDao) {
     }
 
     @WorkerThread
-    suspend fun insert(employeeEntity: EmployeeEntity) {
-        employeeDao.insert(employeeEntity)
+    suspend fun insert(employee: Employee) {
+        employeeDao.insert(employee)
     }
 }

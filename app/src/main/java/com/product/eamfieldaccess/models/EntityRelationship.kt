@@ -116,29 +116,29 @@ class WorkLaborWorkOrder(
 }
 
 class EmployeeWorkOrderDetail(
-    @Embedded var employeeEntity: EmployeeEntity,
+    @Embedded var employee: Employee,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "uuid",
         entityColumn = "employeeId",
         entity = WorkOrderEntity::class
     ) var workLabor: List<WorkLaborWorkOrder>,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "uuid",
         entityColumn = "employeeId",
         entity = WorkOrderEntity::class
     ) var workTasks: List<WorkTaskWorkOrder>,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "uuid",
         entityColumn = "employeeId",
         entity = WorkOrderEntity::class
     ) var workCheckLists: List<ChecklistWorkOrder>
 ) {
-    fun fetchEmployee(): EmployeeEntity {
-        return employeeEntity
+    fun fetchEmployee(): Employee {
+        return employee
     }
 
-    fun initEmployee(employeeEntity: EmployeeEntity) {
-        this.employeeEntity = employeeEntity
+    fun initEmployee(employee: Employee) {
+        this.employee = employee
     }
 
     fun fetchWorkLabor(): List<WorkLaborWorkOrder> {

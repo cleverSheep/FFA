@@ -1,6 +1,7 @@
 package com.product.eamfieldaccess.viewmodels
 
 import androidx.lifecycle.*
+import com.product.eamfieldaccess.models.Employee
 import com.product.eamfieldaccess.models.EmployeeEntity
 import com.product.eamfieldaccess.models.EmployeeWorkOrderDetail
 import com.product.eamfieldaccess.repositories.EmployeeRepository
@@ -14,8 +15,8 @@ class EmployeeViewModel(private val employeeRepository: EmployeeRepository) : Vi
 
     val employees: LiveData<List<EmployeeWorkOrderDetail>> = employeeRepository.employees.asLiveData()
 
-    fun insert(employeeEntity: EmployeeEntity) = viewModelScope.launch {
-        employeeRepository.insert(employeeEntity)
+    fun insert(employee: Employee) = viewModelScope.launch {
+        employeeRepository.insert(employee)
     }
 
     fun getAuthEmployee(

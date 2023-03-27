@@ -13,6 +13,9 @@ class EmployeeEntity(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
+
+    @Ignore
+    var workOrders: List<WorkOrder>? = null
 }
 
 // Child of Employee (Work Order)

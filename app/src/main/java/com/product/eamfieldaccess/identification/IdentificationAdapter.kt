@@ -37,7 +37,7 @@ class IdentificationAdapter : RecyclerView.Adapter<IdentificationAdapter.ViewHol
 
         val workOrders = employee.workOrders
         val bundle = Bundle()
-        val serializedWorkOrders = WorkOrders(mapWorkOrder(workOrders))
+        val serializedWorkOrders = WorkOrders(mapWorkOrder(workOrders!!))
         bundle.putSerializable("work_orders", serializedWorkOrders)
         holder.itemView.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_identification_to_workSelection, bundle)

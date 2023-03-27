@@ -1,5 +1,8 @@
 package com.product.eamfieldaccess.models
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
 // Response after fetching login auth code
@@ -22,11 +25,14 @@ data class UserAuth(val authorization: String)
  *
  */
 
-data class Employee(
-    val employeeName: String,
-    val uuid: String,
-    val workOrders: List<WorkOrder>
-)
+@Entity(tableName = "employees")
+class Employee(
+    @PrimaryKey val uuid: String,
+    val employeeName: String
+) {
+    @Ignore
+    var workOrders: List<WorkOrder>? = null
+}
 
 data class Employees(val employees: List<Employee>)
 

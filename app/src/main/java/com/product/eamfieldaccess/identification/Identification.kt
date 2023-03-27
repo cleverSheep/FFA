@@ -40,9 +40,8 @@ class Identification : Fragment() {
         employees.layoutManager = LinearLayoutManager(activity)
         employeeViewModel.employees.observe(viewLifecycleOwner) { employees ->
             employees.forEach {
-                Log.d("Employee name: ", it.employeeEntity.employeeName)
-                Log.d("Employee uuid: ", it.employeeEntity.id.toString())
-                Log.d("Employee primary key: ", "${it.employeeEntity.id ?: -40}")
+                Log.d("Employee name: ", it.employee.employeeName)
+                Log.d("Employee uuid: ", it.employee.uuid)
             }
         }
     }
