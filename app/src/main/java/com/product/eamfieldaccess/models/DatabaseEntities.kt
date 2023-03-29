@@ -53,7 +53,7 @@ class WorkTaskEntity(
     @ColumnInfo(name = "category") val category: String,
 )
 
-// Child of Work Order (Work Labor)
+/*// Child of Work Order (Work Labor)
 @Entity(
     tableName = "workLabor",
     foreignKeys = [ForeignKey(
@@ -67,7 +67,7 @@ class WorkLaborEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "workOrderId") val workOrderId: String,
     @ColumnInfo(name = "workTaskID") val workTaskID: String,
-)
+)*/
 
 // Child of Work Order (Check List)
 @Entity(

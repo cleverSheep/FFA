@@ -15,18 +15,18 @@ import androidx.room.Relation
 
 // All ITEMS with checkListId
 class ItemChecklistMap(
-    @Embedded var checkList: CheckListEntity,
+    @Embedded var checkList: CheckList,
     @Relation(
         parentColumn = "id",
         entityColumn = "checkListId",
-        entity = CheckListItemEntity::class
+        entity = Item::class
     ) var items: List<Item>
 ) {
-    fun fetchCheckList(): CheckListEntity {
+    fun fetchCheckList(): CheckList {
         return checkList
     }
 
-    fun initCheckList(checkList: CheckListEntity) {
+    fun initCheckList(checkList: CheckList) {
         this.checkList = checkList
     }
 
@@ -40,19 +40,19 @@ class ItemChecklistMap(
 }
 
 class ChecklistWorkOrder(
-    @Embedded var workOrder: WorkOrderEntity,
+    @Embedded var workOrder: WorkOrderExtension,
     @Relation(
         parentColumn = "id",
         entityColumn = "workOrderId",
-        entity = CheckListEntity::class
+        entity = CheckList::class
     ) var checkLists: List<ItemChecklistMap>
 ) {
 
-    fun fetchWorkOrder(): WorkOrderEntity {
+    fun fetchWorkOrder(): WorkOrderExtension {
         return workOrder
     }
 
-    fun initWorkOrder(workOrder: WorkOrderEntity) {
+    fun initWorkOrder(workOrder: WorkOrderExtension) {
         this.workOrder = workOrder
     }
 
@@ -66,51 +66,51 @@ class ChecklistWorkOrder(
 }
 
 class WorkTaskWorkOrder(
-    @Embedded var workOrder: WorkOrderEntity,
+    @Embedded var workOrder: WorkOrderExtension,
     @Relation(
         parentColumn = "id",
         entityColumn = "workOrderId",
-        entity = WorkTaskEntity::class
-    ) var workTasks: List<WorkTaskEntity>
+        entity = WorkTaskExtension::class
+    ) var workTasks: List<WorkTaskExtension>
 ) {
-    fun fetchWorkOrder(): WorkOrderEntity {
+    fun fetchWorkOrder(): WorkOrderExtension {
         return workOrder
     }
 
-    fun initWorkOrder(workOrder: WorkOrderEntity) {
+    fun initWorkOrder(workOrder: WorkOrderExtension) {
         this.workOrder = workOrder
     }
 
-    fun fetchWorkTasks(): List<WorkTaskEntity> {
+    fun fetchWorkTasks(): List<WorkTaskExtension> {
         return workTasks
     }
 
-    fun initWorkTasks(workTasks: List<WorkTaskEntity>) {
+    fun initWorkTasks(workTasks: List<WorkTaskExtension>) {
         this.workTasks = workTasks
     }
 }
 
 class WorkLaborWorkOrder(
-    @Embedded var workOrder: WorkOrderEntity,
+    @Embedded var workOrder: WorkOrderExtension,
     @Relation(
         parentColumn = "id",
         entityColumn = "workOrderId",
-        entity = WorkLaborEntity::class
-    ) var workLabor: List<WorkLaborEntity>
+        entity = WorkLaborExtension::class
+    ) var workLabor: List<WorkLaborExtension>
 ) {
-    fun fetchWorkOrder(): WorkOrderEntity {
+    fun fetchWorkOrder(): WorkOrderExtension {
         return workOrder
     }
 
-    fun initWorkOrder(workOrder: WorkOrderEntity) {
+    fun initWorkOrder(workOrder: WorkOrderExtension) {
         this.workOrder = workOrder
     }
 
-    fun fetchWorkLabor(): List<WorkLaborEntity> {
+    fun fetchWorkLabor(): List<WorkLaborExtension> {
         return workLabor
     }
 
-    fun initWorkLabor(workLabor: List<WorkLaborEntity>) {
+    fun initWorkLabor(workLabor: List<WorkLaborExtension>) {
         this.workLabor = workLabor
     }
 }
@@ -119,18 +119,18 @@ class EmployeeWorkOrderDetail(
     @Embedded var employee: Employee,
     @Relation(
         parentColumn = "uuid",
-        entityColumn = "employeeId",
-        entity = WorkOrderEntity::class
+        entityColumn = "employeeUUID",
+        entity = WorkOrderExtension::class
     ) var workLabor: List<WorkLaborWorkOrder>,
     @Relation(
         parentColumn = "uuid",
-        entityColumn = "employeeId",
-        entity = WorkOrderEntity::class
+        entityColumn = "employeeUUID",
+        entity = WorkOrderExtension::class
     ) var workTasks: List<WorkTaskWorkOrder>,
     @Relation(
         parentColumn = "uuid",
-        entityColumn = "employeeId",
-        entity = WorkOrderEntity::class
+        entityColumn = "employeeUUID",
+        entity = WorkOrderExtension::class
     ) var workCheckLists: List<ChecklistWorkOrder>
 ) {
     fun fetchEmployee(): Employee {

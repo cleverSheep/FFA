@@ -112,12 +112,12 @@ class IdentificationAdapter : RecyclerView.Adapter<IdentificationAdapter.ViewHol
                 requester = workOrder.requestor ?: "---",
                 notes = "---",
                 standardTask = workOrder.standardTask ?: "---",
-                workTasks = allWorkTasks,
-                workLabor = allWorkLabor,
                 startTime = "",
-                endTime = "",
-                checkLists = workOrder.checkLists ?: emptyList()
+                endTime = ""
             )
+            workOrderExtension.workTasks = allWorkTasks
+            workOrderExtension.workLabor = allWorkLabor
+            workOrderExtension.checkLists = workOrder.checkLists ?: emptyList()
             workOrderExtensions.add(workOrderExtension)
         }
         return workOrderExtensions

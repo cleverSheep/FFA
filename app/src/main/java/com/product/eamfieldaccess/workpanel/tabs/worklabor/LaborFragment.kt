@@ -30,7 +30,7 @@ class LaborFragment : Fragment() {
 
         model.currentWorkOrderExtension.observe(viewLifecycleOwner) {
             binding.rvLabor.adapter = adapter
-            adapter.addLaborItems(it.workLabor)
+            adapter.addLaborItems(it.workLabor!!)
             binding.rvLabor.layoutManager = LinearLayoutManager(activity)
         }
 

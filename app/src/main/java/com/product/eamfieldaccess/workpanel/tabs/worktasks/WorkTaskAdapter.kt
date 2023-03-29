@@ -111,6 +111,7 @@ class WorkTaskAdapter(
     fun signEmployeeToTask(position: Int) {
         // create a new labor entry w/ the authenticated employee info
         val workLaborExtension = WorkLaborExtension(
+            null,
             workOrderExtension.id,
             Utils.AUTH_EMPLOYEE!!.uuid,
             dataSet[position].code,

@@ -1,6 +1,7 @@
 package com.product.eamfieldaccess.models
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.io.Serializable
@@ -54,8 +55,17 @@ data class WorkOrder(
     val checkLists: List<CheckList>?
 )
 
-data class WorkOrderExtension(
-    val id: String,
+@Entity(
+    tableName = "workOrders",
+    foreignKeys = [ForeignKey(
+        entity = Employee::class,
+        parentColumns = ["uuid"],
+        childColumns = ["employeeUUID"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
+class WorkOrderExtension(
+    @PrimaryKey val id: String,
     val site: String,
     var employeeUUID: String,
     val location: String,
@@ -68,14 +78,20 @@ data class WorkOrderExtension(
     val requester: String,
     val notes: String,
     val standardTask: String,
-    var workTasks: ArrayList<WorkTaskExtension>,
-    var workLabor: ArrayList<WorkLaborExtension>,
     val startTime: String?,
     val endTime: String?,
-    val checkLists: List<CheckList>
-) : Serializable
+) : Serializable {
+    @Ignore
+    var workTasks: ArrayList<WorkTaskExtension>? = null
 
-data class WorkTask(
+    @Ignore
+    var workLabor: ArrayList<WorkLaborExtension>? = null
+
+    @Ignore
+    var checkLists: List<CheckList>? = null
+}
+
+class WorkTask(
     val workOrderId: String,
     val workTaskID: String,
     val category: String,
@@ -85,7 +101,17 @@ data class WorkTask(
     val notes: String?
 )
 
+@Entity(
+    tableName = "workTasks",
+    foreignKeys = [ForeignKey(
+        entity = WorkOrderExtension::class,
+        parentColumns = ["id"],
+        childColumns = ["workOrderId"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class WorkTaskExtension(
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     var workOrderId: String,
     val category: String,
     var employeeId: String,
@@ -112,7 +138,17 @@ data class WorkLabor(
     val description: String?
 )
 
+@Entity(
+    tableName = "workLabor",
+    foreignKeys = [ForeignKey(
+        entity = WorkOrderExtension::class,
+        parentColumns = ["id"],
+        childColumns = ["workOrderId"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class WorkLaborExtension(
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val workOrderId: String,
     val employeeId: String,
     val workTaskCode: String,
@@ -128,13 +164,38 @@ data class WorkLaborExtension(
     val description: String?
 ) : Serializable
 
+//TODO: update API to return work order ID associated with a CheckList
+@Entity(
+    tableName = "checkList",
+    foreignKeys = [ForeignKey(
+        entity = WorkOrderExtension::class,
+        parentColumns = ["id"],
+        childColumns = ["workOrderId"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class CheckList(
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val title: String,
-    val items: List<Item>
-) : Serializable
+    val workOrderId: String? = null
+) : Serializable {
+    @Ignore
+    var items: List<Item>? = null
+}
 
+@Entity(
+    tableName = "checkListItems",
+    foreignKeys = [ForeignKey(
+        entity = CheckList::class,
+        parentColumns = ["id"],
+        childColumns = ["checkListId"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class Item(
-    val lineText: String
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
+    val lineText: String,
+    val checkListId: String? = null
 )
 // -------------------- //
 

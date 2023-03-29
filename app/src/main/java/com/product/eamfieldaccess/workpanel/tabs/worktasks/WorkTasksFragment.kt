@@ -52,7 +52,7 @@ class WorkTasksFragment : Fragment() {
         model.currentWorkOrderExtension.observe(viewLifecycleOwner) { workOrder ->
             val adapter =
                 WorkTaskAdapter(
-                    workOrder.workTasks,
+                    workOrder.workTasks!!,
                     this::onTaskTimeUpdated,
                     workOrder,
                     this::onEmployeeAdded,
@@ -90,15 +90,15 @@ class WorkTasksFragment : Fragment() {
 
     fun onTaskAdded(workTaskExtension: WorkTaskExtension, workLaborExtension: WorkLaborExtension) {
         model.currentWorkOrderExtension.observeOnce(viewLifecycleOwner) { workOrder ->
-            workOrder.workTasks.add(workTaskExtension)
-            workOrder.workLabor.add(workLaborExtension)
+            workOrder.workTasks!!.add(workTaskExtension)
+            workOrder.workLabor!!.add(workLaborExtension)
             model.currentWorkOrderExtension.postValue(workOrder)
         }
     }
 
     fun onEmployeeAdded(workLaborExtension: WorkLaborExtension) {
         model.currentWorkOrderExtension.observeOnce(viewLifecycleOwner) { workOrder ->
-            workOrder.workLabor.add(workLaborExtension)
+            workOrder.workLabor!!.add(workLaborExtension)
             model.currentWorkOrderExtension.postValue(workOrder)
         }
     }

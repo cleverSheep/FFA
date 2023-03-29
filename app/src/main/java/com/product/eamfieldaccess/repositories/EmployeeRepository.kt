@@ -4,7 +4,6 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.MutableLiveData
 import com.product.eamfieldaccess.database.EmployeeDao
 import com.product.eamfieldaccess.models.Employee
-import com.product.eamfieldaccess.models.EmployeeEntity
 import com.product.eamfieldaccess.models.EmployeeWorkOrderDetail
 import com.product.eamfieldaccess.models.Employees
 import com.product.eamfieldaccess.network.APIClient
@@ -76,6 +75,6 @@ class EmployeeRepository(private val employeeDao: EmployeeDao) {
 
     @WorkerThread
     suspend fun insert(employee: Employee) {
-        employeeDao.insert(employee)
+        employeeDao.addEmployee(employee)
     }
 }

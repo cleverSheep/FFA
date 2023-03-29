@@ -7,19 +7,20 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.product.eamfieldaccess.models.*
+import com.product.eamfieldaccess.workpanel.tabs.checklist.CheckListItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+// TODO: remove the xxEntity classes
 @Database(
     entities = arrayOf(
-        EmployeeEntity::class,
         Employee::class,
-        WorkOrderEntity::class,
-        WorkTaskEntity::class,
-        WorkLaborEntity::class,
-        CheckListEntity::class,
-        CheckListItemEntity::class
-    ), version = 5, exportSchema = false
+        WorkOrderExtension::class,
+        WorkLaborExtension::class,
+        WorkTaskExtension::class,
+        CheckList::class,
+        Item::class
+    ), version = 6, exportSchema = false
 )
 @TypeConverters(EmployeeDataConverter::class)
 abstract class EmployeeRoomDatabase : RoomDatabase() {
@@ -36,8 +37,8 @@ abstract class EmployeeRoomDatabase : RoomDatabase() {
                     var employeeDao = database.employeeDao()
                     var employee = Employee("0001", "Jon Robers")
                     var employeeTwo = Employee("0002", "Sarah Shells")
-                    employeeDao.insert(employee)
-                    employeeDao.insert(employeeTwo)
+                    employeeDao.addEmployee(employee)
+                    employeeDao.addEmployee(employeeTwo)
                 }
             }
         }

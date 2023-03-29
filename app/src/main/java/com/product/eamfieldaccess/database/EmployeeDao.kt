@@ -4,9 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.product.eamfieldaccess.models.Employee
-import com.product.eamfieldaccess.models.EmployeeEntity
-import com.product.eamfieldaccess.models.EmployeeWorkOrderDetail
+import com.product.eamfieldaccess.models.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -16,5 +14,8 @@ interface EmployeeDao {
     fun getEmployees(): Flow<List<EmployeeWorkOrderDetail>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(employee: Employee)
+    suspend fun addEmployee(employee: Employee)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addWorkOrder(workOrder: WorkOrderExtension)
 }
