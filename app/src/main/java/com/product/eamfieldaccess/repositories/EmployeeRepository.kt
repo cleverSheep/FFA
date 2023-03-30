@@ -1,14 +1,18 @@
 package com.product.eamfieldaccess.repositories
 
-import androidx.annotation.WorkerThread
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.product.eamfieldaccess.database.DaoHelper
 import com.product.eamfieldaccess.database.EmployeeDao
+import com.product.eamfieldaccess.database.EmployeeRoomDatabase
 import com.product.eamfieldaccess.models.Employee
 import com.product.eamfieldaccess.models.EmployeeWorkOrderDetail
 import com.product.eamfieldaccess.models.Employees
 import com.product.eamfieldaccess.network.APIClient
 import com.product.eamfieldaccess.network.EmployeeAPI
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -18,8 +22,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EmployeeRepository(private val employeeDao: EmployeeDao) {
+class EmployeeRepository(
+    private val employeeDao: EmployeeDao,
+    private val database: EmployeeRoomDatabase,
+    private val scope: CoroutineScope
+) {
     private val retrofit = APIClient.getClient().create(EmployeeAPI::class.java)
+    private val dbHelper = DaoHelper(database)
 
     private val _authEmployee = MutableLiveData<Employee?>()
     private val _allEmployees = MutableLiveData<Employees?>()
@@ -62,8 +71,13 @@ class EmployeeRepository(private val employeeDao: EmployeeDao) {
         retrofit.getAllEmployees(requestBody!!).enqueue(
             object : Callback<Employees> {
                 override fun onResponse(call: Call<Employees>?, response: Response<Employees>?) {
-                    val userAuth = response?.body()
-                    _allEmployees.postValue(userAuth)
+                    scope.launch {
+                        val allEmployees = response?.body()
+                        allEmployees!!.employees.forEach { employee ->
+                            dbHelper.saveEmployee(employee)
+                        }
+                        _allEmployees.postValue(allEmployees)
+                    }
                 }
 
                 override fun onFailure(call: Call<Employees>?, t: Throwable?) {
@@ -71,10 +85,5 @@ class EmployeeRepository(private val employeeDao: EmployeeDao) {
                 }
             }
         )
-    }
-
-    @WorkerThread
-    suspend fun insert(employee: Employee) {
-        employeeDao.addEmployee(employee)
     }
 }

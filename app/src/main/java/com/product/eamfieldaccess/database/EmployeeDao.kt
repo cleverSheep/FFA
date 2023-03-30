@@ -18,4 +18,22 @@ interface EmployeeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addWorkOrder(workOrder: WorkOrderExtension)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addWorkOrders(workOrder: ArrayList<WorkOrderExtension>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addWorkTasks(workTasks: List<WorkTaskExtension>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addWorkLabor(workLabor: List<WorkLaborExtension>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addCheckLists(checklists: List<CheckList>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addCheckList(checklists: CheckList): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addCheckListItems(items: List<Item>)
 }

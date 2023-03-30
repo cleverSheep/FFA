@@ -32,7 +32,7 @@ class Employee(
     val employeeName: String
 ) {
     @Ignore
-    var workOrders: List<WorkOrder>? = null
+    var workOrders: ArrayList<WorkOrder>? = null
 }
 
 data class Employees(val employees: List<Employee>)
@@ -149,7 +149,7 @@ data class WorkLabor(
 )
 data class WorkLaborExtension(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
-    val workOrderId: String,
+    var workOrderId: String,
     val employeeId: String,
     val workTaskCode: String,
     val employeeName: String,
@@ -177,7 +177,7 @@ data class WorkLaborExtension(
 data class CheckList(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val title: String,
-    val workOrderId: String? = null
+    var workOrderId: String? = null
 ) : Serializable {
     @Ignore
     var items: List<Item>? = null
@@ -195,7 +195,7 @@ data class CheckList(
 data class Item(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val lineText: String,
-    val checkListId: String? = null
+    var checkListId: String? = null
 )
 // -------------------- //
 

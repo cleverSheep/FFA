@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.product.eamfieldaccess.models.*
-import com.product.eamfieldaccess.workpanel.tabs.checklist.CheckListItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
