@@ -36,4 +36,9 @@ interface EmployeeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCheckListItems(items: List<Item>)
+
+/*
+    @Query("DELETE FROM employees")
+    suspend fun deleteEmployees()
+*/
 }
