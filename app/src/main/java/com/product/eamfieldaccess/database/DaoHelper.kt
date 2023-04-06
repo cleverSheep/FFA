@@ -1,7 +1,7 @@
 package com.product.eamfieldaccess.database
 
 import com.product.eamfieldaccess.models.*
-import com.product.eamfieldaccess.util.Utils.Companion.mapWorkOrder
+import com.product.eamfieldaccess.util.Utils.Companion.workOrderToWorkOrderExtension
 
 class DaoHelper(database: EmployeeRoomDatabase) {
     private val employeeDao: EmployeeDao
@@ -16,20 +16,20 @@ class DaoHelper(database: EmployeeRoomDatabase) {
     }
 
     // save work orders for each employee
-    suspend fun saveWorkOrders(employeeId: String, workOrders: ArrayList<WorkOrder>) {
-        val workOrderExtensions = mapWorkOrder(workOrders)
+    suspend fun saveWorkOrders(employeeId: String, workOrders: List<WorkOrder>) {
+        val workOrderExtensions = workOrderToWorkOrderExtension(workOrders)
         workOrderExtensions.forEach { workOrder ->
             workOrder.employeeUUID = employeeId
             employeeDao.addWorkOrder(workOrder)
             insertWorkTasksForWorkOrder(workOrder.id, workOrder.workTasks!!)
             insertWorkLaborForWorkOrder(workOrder.id, workOrder.workLabor!!)
-            insertCheckListsForWorkOrder(workOrder.id, workOrder.checkLists!!)
+            insertCheckListsForWorkOrder(workOrder.id, workOrder.checkLists)
         }
     }
 
     suspend fun insertWorkTasksForWorkOrder(
         workOrderId: String,
-        workTasks: ArrayList<WorkTaskExtension>
+        workTasks: List<WorkTaskExtension>
     ) {
         workTasks.forEach { workTask ->
             workTask.workOrderId = workOrderId
@@ -39,7 +39,7 @@ class DaoHelper(database: EmployeeRoomDatabase) {
 
     suspend fun insertWorkLaborForWorkOrder(
         workOrderId: String,
-        workLabor: ArrayList<WorkLaborExtension>
+        workLabor: List<WorkLaborExtension>
     ) {
         workLabor.forEach { labor ->
             labor.workOrderId = workOrderId

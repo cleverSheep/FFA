@@ -16,8 +16,12 @@ interface EmployeeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addEmployee(employee: Employee)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addWorkOrder(workOrder: WorkOrderExtension)
+
+    /**
+     * TODO: create updateWorkOrder function that uses OnConflictStrategy.REPLACE
+     */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addWorkOrders(workOrder: ArrayList<WorkOrderExtension>)

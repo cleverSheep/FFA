@@ -8,12 +8,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.models.*
-import com.product.eamfieldaccess.util.Utils.Companion.mapWorkOrder
 import com.product.eamfieldaccess.workselection.WorkSelectionItem
 import java.io.Serializable
 
 class IdentificationAdapter : RecyclerView.Adapter<IdentificationAdapter.ViewHolder>() {
-    private var employees: ArrayList<Employee> = ArrayList()
+    private var employees: ArrayList<EmployeeExtension> = ArrayList()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val employeeId: WorkSelectionItem
@@ -38,7 +37,7 @@ class IdentificationAdapter : RecyclerView.Adapter<IdentificationAdapter.ViewHol
 
         val workOrders = employee.workOrders
         val bundle = Bundle()
-        val serializedWorkOrders = WorkOrders(mapWorkOrder(workOrders!!))
+        val serializedWorkOrders = WorkOrders(workOrders!!.toList())
         bundle.putSerializable("work_orders", serializedWorkOrders)
         holder.itemView.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_identification_to_workSelection, bundle)
@@ -47,14 +46,12 @@ class IdentificationAdapter : RecyclerView.Adapter<IdentificationAdapter.ViewHol
 
     override fun getItemCount() = employees.size
 
-    // TODO: add employees from database
-    fun addEmployees(employees: List<Employee>) {
+    fun addEmployees(employees: List<EmployeeExtension>) {
         this.employees.addAll(employees)
         notifyDataSetChanged()
     }
 
-    // TODO: add employee from database
-    fun addEmployee(employee: Employee) {
+    fun addEmployee(employee: EmployeeExtension) {
         this.employees.add(employee)
         notifyDataSetChanged()
     }

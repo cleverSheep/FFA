@@ -62,7 +62,7 @@ class WorkTasksFragment : Fragment() {
             workTaskAdapter = adapter
             binding.rvWorkTasks.adapter = adapter
             binding.rvWorkTasks.layoutManager = LinearLayoutManager(activity)
-            if (workOrder.employeeUUID != Utils.AUTH_EMPLOYEE!!.uuid) {
+            if (workOrder.employeeUUID != Utils.AUTH_EMPLOYEE?.uuid) {
                 binding.fabAddTask.visibility = View.GONE
             }
             binding.fabAddTask.setOnClickListener {

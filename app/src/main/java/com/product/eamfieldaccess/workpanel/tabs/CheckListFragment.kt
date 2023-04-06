@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.product.eamfieldaccess.databinding.FragmentCheckListBinding
-import com.product.eamfieldaccess.models.CheckList
 import com.product.eamfieldaccess.workpanel.tabs.checklist.CheckListMainAdapter
 import com.product.eamfieldaccess.workselection.WorkOrderViewModel
 
@@ -31,7 +30,7 @@ class CheckListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         model.currentWorkOrderExtension.observe(viewLifecycleOwner) {
-            val adapter = CheckListMainAdapter(it.checkLists as ArrayList<CheckList>)
+            val adapter = CheckListMainAdapter(it.checkLists!!)
             binding.rvCheckList.adapter = adapter
             binding.rvCheckList.layoutManager = LinearLayoutManager(activity)
         }

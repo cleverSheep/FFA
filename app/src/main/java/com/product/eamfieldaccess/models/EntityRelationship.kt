@@ -23,31 +23,24 @@ class ItemChecklistMap(
     ) var items: List<Item>
 )
 
-class ChecklistWorkOrder(
-    @Embedded var workOrder: WorkOrderExtension,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "workOrderId",
-        entity = CheckList::class
-    ) var checkLists: List<ItemChecklistMap>
-)
-
-class WorkTaskWorkOrder(
-    @Embedded var workOrder: WorkOrderExtension,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "workOrderId",
-        entity = WorkTaskExtension::class
-    ) var workTasks: List<WorkTaskExtension>
-)
-
-class WorkLaborWorkOrder(
+class WorkOrderNestedData(
     @Embedded var workOrder: WorkOrderExtension,
     @Relation(
         parentColumn = "id",
         entityColumn = "workOrderId",
         entity = WorkLaborExtension::class
-    ) var workLabor: List<WorkLaborExtension>
+    ) var workLabor: List<WorkLaborExtension>,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "workOrderId",
+        entity = WorkTaskExtension::class
+    ) var workTasks: List<WorkTaskExtension>,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "workOrderId",
+        entity = CheckList::class
+    ) var checkLists: List<ItemChecklistMap>
+
 )
 
 class EmployeeWorkOrderDetail(
@@ -56,20 +49,5 @@ class EmployeeWorkOrderDetail(
         parentColumn = "uuid",
         entityColumn = "employeeUUID",
         entity = WorkOrderExtension::class
-    ) var workOrders: List<WorkOrderExtension>,
-    @Relation(
-        parentColumn = "uuid",
-        entityColumn = "employeeUUID",
-        entity = WorkOrderExtension::class
-    ) var workLabor: List<WorkLaborWorkOrder>,
-    @Relation(
-        parentColumn = "uuid",
-        entityColumn = "employeeUUID",
-        entity = WorkOrderExtension::class
-    ) var workTasks: List<WorkTaskWorkOrder>,
-    @Relation(
-        parentColumn = "uuid",
-        entityColumn = "employeeUUID",
-        entity = WorkOrderExtension::class
-    ) var workCheckLists: List<ChecklistWorkOrder>
+    ) var workOrders: List<WorkOrderNestedData>,
 )

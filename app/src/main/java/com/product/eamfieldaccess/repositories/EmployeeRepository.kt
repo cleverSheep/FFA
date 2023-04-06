@@ -23,8 +23,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class EmployeeRepository(
-    private val employeeDao: EmployeeDao,
-    private val database: EmployeeRoomDatabase,
+    employeeDao: EmployeeDao,
+    database: EmployeeRoomDatabase,
     private val scope: CoroutineScope
 ) {
     private val retrofit = APIClient.getClient().create(EmployeeAPI::class.java)
@@ -49,8 +49,11 @@ class EmployeeRepository(
         retrofit.getAuthEmployee(requestBody!!).enqueue(
             object : Callback<Employee> {
                 override fun onResponse(call: Call<Employee>?, response: Response<Employee>?) {
-                    val userAuth = response?.body()
-                    _authEmployee.postValue(userAuth)
+                    scope.launch {
+                        val userAuth = response?.body()
+                        dbHelper.saveEmployee(userAuth!!)
+                        _authEmployee.postValue(userAuth)
+                    }
                 }
 
                 override fun onFailure(call: Call<Employee>?, t: Throwable?) {

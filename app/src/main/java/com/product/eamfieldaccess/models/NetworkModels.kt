@@ -32,7 +32,36 @@ class Employee(
     val employeeName: String
 ) {
     @Ignore
-    var workOrders: ArrayList<WorkOrder>? = null
+    var workOrders: List<WorkOrder>? = null
+}
+
+class EmployeeExtension(
+    val uuid: String,
+    val employeeName: String,
+) {
+    var workOrders: ArrayList<WorkOrderExtension>? = null
+
+    constructor(
+        uuid: String,
+        employeeName: String,
+        employeeNestedData: EmployeeWorkOrderDetail
+    ) : this(
+        uuid,
+        employeeName
+    ) {
+        this.workOrders = arrayListOf()
+        addWorkOrders(employeeNestedData)
+    }
+
+    private fun addWorkOrders(employeeNestedData: EmployeeWorkOrderDetail) {
+        employeeNestedData.workOrders.forEach {
+            val workOrder = it.workOrder
+            workOrder.workLabor = ArrayList(it.workLabor)
+            workOrder.workTasks = ArrayList(it.workTasks)
+            workOrder.addCheckLists(it.checkLists)
+            workOrders!!.add(workOrder)
+        }
+    }
 }
 
 data class Employees(val employees: List<Employee>)
@@ -88,7 +117,15 @@ class WorkOrderExtension(
     var workLabor: ArrayList<WorkLaborExtension>? = null
 
     @Ignore
-    var checkLists: List<CheckList>? = null
+    var checkLists: ArrayList<CheckList> = ArrayList()
+
+    fun addCheckLists(listItemCheckList: List<ItemChecklistMap>) {
+        listItemCheckList.forEach {
+            val checkList = it.checkList
+            checkList.items = it.items
+            checkLists.add(checkList)
+        }
+    }
 }
 
 class WorkTask(

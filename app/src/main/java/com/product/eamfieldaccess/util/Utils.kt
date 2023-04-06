@@ -12,7 +12,7 @@ class Utils {
         val TASK_PAUSED = mutableMapOf<String, PausedTime?>()
         var AUTH_EMPLOYEE: Employee? = null
 
-        fun mapWorkOrder(workOrders: List<WorkOrder>): ArrayList<WorkOrderExtension> {
+        fun workOrderToWorkOrderExtension(workOrders: List<WorkOrder>): ArrayList<WorkOrderExtension> {
             val workOrderExtensions = ArrayList<WorkOrderExtension>()
             val allWorkTasks = ArrayList<WorkTaskExtension>()
             val allWorkLabor = ArrayList<WorkLaborExtension>()
@@ -71,7 +71,8 @@ class Utils {
                 )
                 workOrderExtension.workTasks = allWorkTasks
                 workOrderExtension.workLabor = allWorkLabor
-                workOrderExtension.checkLists = workOrder.checkLists ?: emptyList()
+                workOrderExtension.checkLists =
+                    workOrder.checkLists?.let { ArrayList(it) } ?: ArrayList()
                 workOrderExtensions.add(workOrderExtension)
             }
             return workOrderExtensions

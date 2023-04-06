@@ -83,21 +83,21 @@ class WorkTaskAdapter(
         var employeeId = ""
 
         val taskCode =
-            "${dataSet[position].workOrderId}-${dataSet[position].code}-${Utils.AUTH_EMPLOYEE!!.uuid}"
+            "${dataSet[position].workOrderId}-${dataSet[position].code}-${Utils.AUTH_EMPLOYEE?.uuid}"
         holder.signOnTask.setOnClickListener {
             signEmployeeToTask(position)
             Utils.CURRENT_EMPLOYEE_ADDED_TASK.add(taskCode)
         }
-        if (workOrderExtension.employeeUUID != Utils.AUTH_EMPLOYEE!!.uuid && !Utils.CURRENT_EMPLOYEE_ADDED_TASK.contains(
+        if (workOrderExtension.employeeUUID != Utils.AUTH_EMPLOYEE?.uuid && !Utils.CURRENT_EMPLOYEE_ADDED_TASK.contains(
                 taskCode
             )
         ) {
             holder.signOnTask.visibility = View.VISIBLE
             holder.startTask.isEnabled = false
             holder.endTask.isEnabled = false
-            employeeId = Utils.AUTH_EMPLOYEE!!.uuid
-        } else if (workOrderExtension.employeeUUID != Utils.AUTH_EMPLOYEE!!.uuid) {
-            employeeId = Utils.AUTH_EMPLOYEE!!.uuid
+            employeeId = Utils.AUTH_EMPLOYEE?.uuid ?: ""
+        } else if (workOrderExtension.employeeUUID != Utils.AUTH_EMPLOYEE?.uuid) {
+            employeeId = Utils.AUTH_EMPLOYEE?.uuid ?: ""
         } else {
             employeeId = dataSet[position].employeeId
             holder.signOnTask.visibility = View.GONE
@@ -113,9 +113,9 @@ class WorkTaskAdapter(
         val workLaborExtension = WorkLaborExtension(
             null,
             workOrderExtension.id,
-            Utils.AUTH_EMPLOYEE!!.uuid,
+            Utils.AUTH_EMPLOYEE?.uuid ?: "",
             dataSet[position].code,
-            Utils.AUTH_EMPLOYEE!!.employeeName,
+            Utils.AUTH_EMPLOYEE?.employeeName ?: "",
             false,
             0,
             0,

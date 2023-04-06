@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.product.eamfieldaccess.MainApplication
 import com.product.eamfieldaccess.R
+import com.product.eamfieldaccess.models.EmployeeExtension
 import com.product.eamfieldaccess.util.Utils
 import com.product.eamfieldaccess.viewmodels.EmployeeViewModel
 import com.product.eamfieldaccess.viewmodels.EmployeeViewModelFactory
@@ -46,6 +47,9 @@ class Identification : Fragment() {
         }
     }
 
+    /**
+     * TODO: Replace the sample datqa
+     */
     fun fetchAuthEmployee(adapter: IdentificationAdapter) {
         employeeViewModel.getAuthEmployee(
             authorization = "1XII/y1Mdh4MHVSk9iKpZbWdVsjjjvi0jRtDm4rzKPUiyjtF07kWbmCmMxr" +
@@ -56,11 +60,18 @@ class Identification : Fragment() {
             data = JSONObject().put("timestamp", "")
         )
         employeeViewModel.authEmployee.observe(viewLifecycleOwner) { employee ->
+/*
+            val authEmployee =
+                EmployeeExtension(employee!!.uuid, employee.employeeName, employee!!.workOrders)
             Utils.AUTH_EMPLOYEE = employee
             employee?.let { adapter.addEmployee(it) }
+*/
         }
     }
 
+    /**
+     * TODO: Replace the sample datq with login credentials
+     */
     fun fetchAllEmployees(adapter: IdentificationAdapter) {
         employeeViewModel.getAllEmployees(
             authorization = "1XII/y1Mdh4MHVSk9iKpZbWdVsjjjvi0jRtDm4rzKPUiyjtF07kWbmCmMxr" +
@@ -70,13 +81,14 @@ class Identification : Fragment() {
             command = "ffa.getallemployees",
             data = JSONObject().put("timestamp", "")
         )
-        employeeViewModel.allEmployees.observe(viewLifecycleOwner) { employees ->
-            employees?.let {
-                val filterEmployees = it.employees.filter { employee ->
-                    employee.uuid != Utils.AUTH_EMPLOYEE?.uuid
-                }
-                adapter.addEmployees(filterEmployees)
+        employeeViewModel.employees.observe(viewLifecycleOwner) { employees ->
+            val filteredEmployees = employees.map {
+                EmployeeExtension(it.employee.uuid, it.employee.employeeName, it)
             }
+            filteredEmployees.filter {
+                it.uuid != Utils.AUTH_EMPLOYEE?.uuid
+            }
+            adapter.addEmployees(filteredEmployees)
         }
     }
 
