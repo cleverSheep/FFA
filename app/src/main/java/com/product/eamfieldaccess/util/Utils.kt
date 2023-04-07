@@ -1,8 +1,22 @@
 package com.product.eamfieldaccess.util
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import com.product.eamfieldaccess.models.*
 import java.util.*
 import kotlin.collections.ArrayList
+
+fun <T> LiveData<T>.observeOnce(
+    lifecycleOwner: LifecycleOwner,
+    observer: androidx.lifecycle.Observer<T>
+) {
+    observe(lifecycleOwner, object : androidx.lifecycle.Observer<T> {
+        override fun onChanged(t: T?) {
+            observer.onChanged(t)
+            removeObserver(this)
+        }
+    })
+}
 
 class Utils {
     companion object {
@@ -79,6 +93,7 @@ class Utils {
         }
     }
 }
+
 
 data class PausedTime(
     var isOnBreak: Boolean,

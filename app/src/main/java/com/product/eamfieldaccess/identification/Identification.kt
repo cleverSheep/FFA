@@ -13,6 +13,7 @@ import com.product.eamfieldaccess.MainApplication
 import com.product.eamfieldaccess.R
 import com.product.eamfieldaccess.models.EmployeeExtension
 import com.product.eamfieldaccess.util.Utils
+import com.product.eamfieldaccess.util.observeOnce
 import com.product.eamfieldaccess.viewmodels.EmployeeViewModel
 import com.product.eamfieldaccess.viewmodels.EmployeeViewModelFactory
 import org.json.JSONObject
@@ -59,14 +60,12 @@ class Identification : Fragment() {
             command = "ffa.getauthenticatedemployee",
             data = JSONObject().put("timestamp", "")
         )
-        employeeViewModel.authEmployee.observe(viewLifecycleOwner) { employee ->
-/*
+/*        employeeViewModel.authEmployee.observe(viewLifecycleOwner) { employee ->
             val authEmployee =
                 EmployeeExtension(employee!!.uuid, employee.employeeName, employee!!.workOrders)
             Utils.AUTH_EMPLOYEE = employee
             employee?.let { adapter.addEmployee(it) }
-*/
-        }
+        }*/
     }
 
     /**
@@ -81,7 +80,7 @@ class Identification : Fragment() {
             command = "ffa.getallemployees",
             data = JSONObject().put("timestamp", "")
         )
-        employeeViewModel.employees.observe(viewLifecycleOwner) { employees ->
+        employeeViewModel.employees.observeOnce(viewLifecycleOwner) { employees ->
             val filteredEmployees = employees.map {
                 EmployeeExtension(it.employee.uuid, it.employee.employeeName, it)
             }
