@@ -64,6 +64,9 @@ class EmployeeExtension(
     }
 }
 
+@Entity(tableName = "auth_employee")
+data class AuthEmployee(@PrimaryKey val uuid: String, val employeeName: String)
+
 data class Employees(val employees: List<Employee>)
 
 data class WorkOrder(

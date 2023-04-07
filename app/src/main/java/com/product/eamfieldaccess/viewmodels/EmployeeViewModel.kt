@@ -1,16 +1,15 @@
 package com.product.eamfieldaccess.viewmodels
 
 import androidx.lifecycle.*
+import com.product.eamfieldaccess.models.AuthEmployee
 import com.product.eamfieldaccess.models.EmployeeWorkOrderDetail
 import com.product.eamfieldaccess.repositories.EmployeeRepository
 import org.json.JSONObject
 
 class EmployeeViewModel(private val employeeRepository: EmployeeRepository) : ViewModel() {
 
-    val authEmployee = employeeRepository.authEmployee
-    val allEmployees = employeeRepository.allEmployees
-
     val employees: LiveData<List<EmployeeWorkOrderDetail>> = employeeRepository.employees.asLiveData()
+    val authEmployeeId: LiveData<AuthEmployee> = employeeRepository.authEmployeeId.asLiveData()
 
     fun getAuthEmployee(
         authorization: String,

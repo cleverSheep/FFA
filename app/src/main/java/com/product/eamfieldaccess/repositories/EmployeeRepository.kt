@@ -1,10 +1,10 @@
 package com.product.eamfieldaccess.repositories
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.product.eamfieldaccess.database.DaoHelper
 import com.product.eamfieldaccess.database.EmployeeDao
 import com.product.eamfieldaccess.database.EmployeeRoomDatabase
+import com.product.eamfieldaccess.models.AuthEmployee
 import com.product.eamfieldaccess.models.Employee
 import com.product.eamfieldaccess.models.EmployeeWorkOrderDetail
 import com.product.eamfieldaccess.models.Employees
@@ -23,7 +23,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class EmployeeRepository(
-    employeeDao: EmployeeDao,
+    private val employeeDao: EmployeeDao,
     database: EmployeeRoomDatabase,
     private val scope: CoroutineScope
 ) {
@@ -37,6 +37,7 @@ class EmployeeRepository(
     val allEmployees = _allEmployees
 
     val employees: Flow<List<EmployeeWorkOrderDetail>> = employeeDao.getEmployees()
+    val authEmployeeId: Flow<AuthEmployee> = employeeDao.getAuthEmployeeID()
 
     fun fetchAuthEmployee(user: JSONObject) {
         var requestBody: RequestBody? = null
@@ -51,7 +52,7 @@ class EmployeeRepository(
                 override fun onResponse(call: Call<Employee>?, response: Response<Employee>?) {
                     scope.launch {
                         val userAuth = response?.body()
-                        dbHelper.saveEmployee(userAuth!!)
+                        userAuth?.let { employeeDao.addAuthEmployeeID(AuthEmployee(it.uuid, it.employeeName)) }
                         _authEmployee.postValue(userAuth)
                     }
                 }

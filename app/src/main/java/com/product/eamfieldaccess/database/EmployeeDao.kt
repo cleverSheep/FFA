@@ -13,8 +13,14 @@ interface EmployeeDao {
     @Query("SELECT * FROM employees")
     fun getEmployees(): Flow<List<EmployeeWorkOrderDetail>>
 
+    @Query("SELECT * FROM auth_employee")
+    fun getAuthEmployeeID(): Flow<AuthEmployee>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addEmployee(employee: Employee)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addAuthEmployeeID(authEmployee: AuthEmployee)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addWorkOrder(workOrder: WorkOrderExtension)

@@ -10,16 +10,16 @@ import com.product.eamfieldaccess.models.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-// TODO: remove the xxEntity classes
 @Database(
     entities = arrayOf(
         Employee::class,
+        AuthEmployee::class,
         WorkOrderExtension::class,
         WorkLaborExtension::class,
         WorkTaskExtension::class,
         CheckList::class,
         Item::class
-    ), version = 6, exportSchema = false
+    ), version = 8, exportSchema = false
 )
 @TypeConverters(EmployeeDataConverter::class)
 abstract class EmployeeRoomDatabase : RoomDatabase() {
@@ -33,11 +33,13 @@ abstract class EmployeeRoomDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
+/*
                     var employeeDao = database.employeeDao()
                     var employee = Employee("0001", "Jon Robers")
                     var employeeTwo = Employee("0002", "Sarah Shells")
                     employeeDao.addEmployee(employee)
                     employeeDao.addEmployee(employeeTwo)
+*/
                 }
             }
         }

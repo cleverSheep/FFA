@@ -1,7 +1,6 @@
 package com.product.eamfieldaccess.identification
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,22 +35,16 @@ class Identification : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         employees = view.findViewById(R.id.rv_employees)
         val adapter = IdentificationAdapter()
-        fetchAuthEmployee(adapter)
+        fetchAuthEmployee()
         fetchAllEmployees(adapter)
         employees.adapter = adapter
         employees.layoutManager = LinearLayoutManager(activity)
-        employeeViewModel.employees.observe(viewLifecycleOwner) { employees ->
-            employees.forEach {
-                Log.d("Employee name: ", it.employee.employeeName)
-                Log.d("Employee uuid: ", it.employee.uuid)
-            }
-        }
     }
 
     /**
      * TODO: Replace the sample datqa
      */
-    fun fetchAuthEmployee(adapter: IdentificationAdapter) {
+    fun fetchAuthEmployee() {
         employeeViewModel.getAuthEmployee(
             authorization = "1XII/y1Mdh4MHVSk9iKpZbWdVsjjjvi0jRtDm4rzKPUiyjtF07kWbmCmMxr" +
                     "BKMJ/E1jAy7pY7+0cx/V2zeHAKeheB9L1uerdHImfl12bacCMpGrkNnmG/2Wl+6cpsqKpdUTrGOIO/TJf" +
@@ -60,12 +53,10 @@ class Identification : Fragment() {
             command = "ffa.getauthenticatedemployee",
             data = JSONObject().put("timestamp", "")
         )
-/*        employeeViewModel.authEmployee.observe(viewLifecycleOwner) { employee ->
-            val authEmployee =
-                EmployeeExtension(employee!!.uuid, employee.employeeName, employee!!.workOrders)
-            Utils.AUTH_EMPLOYEE = employee
-            employee?.let { adapter.addEmployee(it) }
-        }*/
+        employeeViewModel.authEmployeeId.observe(viewLifecycleOwner) {
+            Utils.AUTH_EMPLOYEE = it
+        }
+
     }
 
     /**

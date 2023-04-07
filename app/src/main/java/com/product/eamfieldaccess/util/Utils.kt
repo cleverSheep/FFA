@@ -24,7 +24,7 @@ class Utils {
         val TASK_START_TIME = mutableMapOf<String, Date>()
         var CURRENT_EMPLOYEE_ADDED_TASK = mutableSetOf<String>()
         val TASK_PAUSED = mutableMapOf<String, PausedTime?>()
-        var AUTH_EMPLOYEE: Employee? = null
+        var AUTH_EMPLOYEE: AuthEmployee? = null
 
         fun workOrderToWorkOrderExtension(workOrders: List<WorkOrder>): ArrayList<WorkOrderExtension> {
             val workOrderExtensions = ArrayList<WorkOrderExtension>()
